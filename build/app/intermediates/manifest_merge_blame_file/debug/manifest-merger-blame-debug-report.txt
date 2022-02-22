@@ -1,0 +1,436 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.montage.io"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+9        android:targetSdkVersion="28" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:9:5-67
+14-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:9:22-64
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->[com.google.android.exoplayer:exoplayer-core:2.14.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\c1034eaa1c8a15f2d2325ddf06037d0e\exoplayer-core-2.14.1\AndroidManifest.xml:24:5-79
+15-->[com.google.android.exoplayer:exoplayer-core:2.14.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\c1034eaa1c8a15f2d2325ddf06037d0e\exoplayer-core-2.14.1\AndroidManifest.xml:24:22-76
+16    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+16-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:24:5-68
+16-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:24:22-65
+17    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+17-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:26:5-82
+17-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:26:22-79
+18    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" /> <!-- This Line -->
+18-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:26:5-110
+18-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:26:22-107
+19    <application
+19-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:11:5-66:19
+20        android:name="io.flutter.app.FlutterApplication"
+20-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:12:9-57
+21        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+21-->[androidx.core:core:1.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\3aaf6e5219b7f981ec263df919098c6f\core-1.1.0\AndroidManifest.xml:24:18-86
+22        android:debuggable="true"
+23        android:icon="@mipmap/ic_launcher"
+23-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:13:9-43
+24        android:label="Montage"
+24-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:14:9-32
+25        android:supportsRtl="true"
+25-->[com.facebook.android:facebook-login:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a528cf6dafe521b3b08915d8a45bfbca\facebook-login-8.1.0\AndroidManifest.xml:28:18-44
+26        android:usesCleartextTraffic="true" >
+26-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:15:9-44
+27        <activity
+27-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:16:9-39:20
+28            android:name="com.montage.io.MainActivity"
+28-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:17:13-41
+29            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+29-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:18:13-163
+30            android:hardwareAccelerated="true"
+30-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:19:13-47
+31            android:launchMode="singleTop"
+31-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:20:13-43
+32            android:theme="@style/LaunchTheme"
+32-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:21:13-47
+33            android:windowSoftInputMode="adjustResize" >
+33-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:22:13-55
+34
+35            <!--
+36                 Specifies an Android theme to apply to this Activity as soon as
+37                 the Android process has started. This theme is visible to the user
+38                 while the Flutter UI initializes. After that, this theme continues
+39                 to determine the Window background behind the Flutter UI.
+40            -->
+41            <meta-data
+41-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:27:13-29:57
+42                android:name="io.flutter.embedding.android.NormalTheme"
+42-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:28:17-72
+43                android:resource="@style/NormalTheme" />
+43-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:29:17-54
+44            <meta-data
+44-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:32:13-34:66
+45                android:name="io.flutter.embedding.android.SplashScreenDrawable"
+45-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:33:17-81
+46                android:resource="@drawable/launch_background" />
+46-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:34:17-63
+47
+48            <intent-filter>
+48-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:35:13-38:29
+49                <action android:name="android.intent.action.MAIN" />
+49-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:36:17-69
+49-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:36:25-66
+50
+51                <category android:name="android.intent.category.LAUNCHER" />
+51-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:37:17-77
+51-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:37:27-74
+52            </intent-filter>
+53        </activity>
+54
+55        <meta-data
+55-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:40:9-42:55
+56            android:name="com.facebook.sdk.ApplicationId"
+56-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:41:13-58
+57            android:value="@string/facebook_app_id" />
+57-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:42:13-52
+58
+59        <activity
+59-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:44:9-47:48
+60            android:name="com.facebook.FacebookActivity"
+60-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:45:13-57
+61            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+61-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:46:13-96
+62            android:label="@string/app_name"
+62-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:47:13-45
+63            android:theme="@style/com_facebook_activity_theme" />
+63-->[com.facebook.android:facebook-common:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a01516b66d914619abaee7a9006e92e9\facebook-common-8.1.0\AndroidManifest.xml:33:13-63
+64        <activity
+64-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:49:9-60:20
+65            android:name="com.facebook.CustomTabActivity"
+65-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:50:13-58
+66            android:exported="true" >
+66-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:51:13-36
+67            <intent-filter>
+67-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:52:13-59:29
+68                <action android:name="android.intent.action.VIEW" />
+68-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:53:17-69
+68-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:53:25-66
+69
+70                <category android:name="android.intent.category.DEFAULT" />
+70-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:55:17-76
+70-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:55:27-73
+71                <category android:name="android.intent.category.BROWSABLE" />
+71-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:56:17-78
+71-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:56:27-75
+72
+73                <data android:scheme="@string/fb_login_protocol_scheme" />
+73-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:58:17-75
+73-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:58:23-72
+74            </intent-filter>
+75            <intent-filter>
+75-->[com.facebook.android:facebook-common:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a01516b66d914619abaee7a9006e92e9\facebook-common-8.1.0\AndroidManifest.xml:39:13-48:29
+76                <action android:name="android.intent.action.VIEW" />
+76-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:53:17-69
+76-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:53:25-66
+77
+78                <category android:name="android.intent.category.DEFAULT" />
+78-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:55:17-76
+78-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:55:27-73
+79                <category android:name="android.intent.category.BROWSABLE" />
+79-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:56:17-78
+79-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:56:27-75
+80
+81                <data
+81-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:58:17-75
+82                    android:host="cct.com.montage.io"
+83                    android:scheme="fbconnect" />
+83-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:58:23-72
+84            </intent-filter>
+85        </activity>
+86        <!--
+87             Don't delete the meta-data below.
+88             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+89        -->
+90        <meta-data
+90-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:63:9-65:33
+91            android:name="flutterEmbedding"
+91-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:64:13-44
+92            android:value="2" />
+92-->C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\android\app\src\main\AndroidManifest.xml:65:13-30
+93
+94        <service
+94-->[:firebase_auth] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+95            android:name="com.google.firebase.components.ComponentDiscoveryService"
+95-->[:firebase_auth] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-89
+96            android:directBootAware="true"
+96-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\1800a58a68a730436aec544ca4fb93d6\jetified-firebase-common-19.3.0\AndroidManifest.xml:34:13-43
+97            android:exported="false" >
+97-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:35:13-37
+98            <meta-data
+98-->[:firebase_auth] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+99                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
+99-->[:firebase_auth] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
+100                android:value="com.google.firebase.components.ComponentRegistrar" />
+100-->[:firebase_auth] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_auth\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+101            <meta-data
+101-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-16:85
+102                android:name="com.google.firebase.components:io.flutter.plugins.firebasemessaging.FlutterFirebaseAppRegistrar"
+102-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-127
+103                android:value="com.google.firebase.components.ComponentRegistrar" />
+103-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:16:17-82
+104            <meta-data
+104-->[:firebase_core] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:85
+105                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+105-->[:firebase_core] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-124
+106                android:value="com.google.firebase.components.ComponentRegistrar" />
+106-->[:firebase_core] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_core\intermediates\library_manifest\debug\AndroidManifest.xml:11:17-82
+107            <meta-data
+107-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:36:13-38:85
+108                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+108-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:37:17-109
+109                android:value="com.google.firebase.components.ComponentRegistrar" />
+109-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:38:17-82
+110            <meta-data
+110-->[com.google.firebase:firebase-messaging:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a227190f08d0377782ba774765623939\jetified-firebase-messaging-20.3.0\AndroidManifest.xml:39:13-41:85
+111                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+111-->[com.google.firebase:firebase-messaging:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a227190f08d0377782ba774765623939\jetified-firebase-messaging-20.3.0\AndroidManifest.xml:40:17-119
+112                android:value="com.google.firebase.components.ComponentRegistrar" />
+112-->[com.google.firebase:firebase-messaging:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a227190f08d0377782ba774765623939\jetified-firebase-messaging-20.3.0\AndroidManifest.xml:41:17-82
+113            <meta-data
+113-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:32:13-34:85
+114                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+114-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:33:17-96
+115                android:value="com.google.firebase.components.ComponentRegistrar" />
+115-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:34:17-82
+116            <meta-data
+116-->[com.google.android.gms:play-services-measurement-api:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\c54d21df40a2b914be32b843578fb0ff\play-services-measurement-api-17.6.0\AndroidManifest.xml:30:13-32:85
+117                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+117-->[com.google.android.gms:play-services-measurement-api:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\c54d21df40a2b914be32b843578fb0ff\play-services-measurement-api-17.6.0\AndroidManifest.xml:31:17-139
+118                android:value="com.google.firebase.components.ComponentRegistrar" />
+118-->[com.google.android.gms:play-services-measurement-api:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\c54d21df40a2b914be32b843578fb0ff\play-services-measurement-api-17.6.0\AndroidManifest.xml:32:17-82
+119            <meta-data
+119-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34a0e5d53ae61e749f2724a77a7fa61b\firebase-datatransport-17.0.3\AndroidManifest.xml:28:13-30:85
+120                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+120-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34a0e5d53ae61e749f2724a77a7fa61b\firebase-datatransport-17.0.3\AndroidManifest.xml:29:17-115
+121                android:value="com.google.firebase.components.ComponentRegistrar" />
+121-->[com.google.firebase:firebase-datatransport:17.0.3] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34a0e5d53ae61e749f2724a77a7fa61b\firebase-datatransport-17.0.3\AndroidManifest.xml:30:17-82
+122            <meta-data
+122-->[com.google.firebase:firebase-installations:16.3.3] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\657a4170ad1fbb28863aa99d484eaa8d\firebase-installations-16.3.3\AndroidManifest.xml:17:13-19:85
+123                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+123-->[com.google.firebase:firebase-installations:16.3.3] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\657a4170ad1fbb28863aa99d484eaa8d\firebase-installations-16.3.3\AndroidManifest.xml:18:17-127
+124                android:value="com.google.firebase.components.ComponentRegistrar" />
+124-->[com.google.firebase:firebase-installations:16.3.3] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\657a4170ad1fbb28863aa99d484eaa8d\firebase-installations-16.3.3\AndroidManifest.xml:19:17-82
+125        </service>
+126        <service android:name="io.flutter.plugins.firebasemessaging.FlutterFirebaseMessagingService" >
+126-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-12:19
+126-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:8:18-101
+127            <intent-filter>
+127-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+128                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+128-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+128-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+129            </intent-filter>
+130        </service>
+131
+132        <activity
+132-->[:url_launcher] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+133            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+133-->[:url_launcher] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+134            android:exported="false"
+134-->[:url_launcher] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+135            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+135-->[:url_launcher] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\url_launcher\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+136        <activity android:name="com.facebook.CustomTabMainActivity" />
+136-->[com.facebook.android:facebook-common:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a01516b66d914619abaee7a9006e92e9\facebook-common-8.1.0\AndroidManifest.xml:34:9-71
+136-->[com.facebook.android:facebook-common:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a01516b66d914619abaee7a9006e92e9\facebook-common-8.1.0\AndroidManifest.xml:34:19-68
+137        <activity
+137-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:24:9-31:50
+138            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+138-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:25:13-85
+139            android:excludeFromRecents="true"
+139-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:26:13-46
+140            android:exported="true"
+140-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:27:13-36
+141            android:launchMode="singleTask"
+141-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:28:13-44
+142            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+142-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:29:13-102
+143            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+143-->[com.google.firebase:firebase-auth:19.4.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\ee449d3e67c70a150d20287a3fddee4f\firebase-auth-19.4.0\AndroidManifest.xml:30:13-72
+144        <!--
+145         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+146         with the application context. This config is merged in with the host app's manifest,
+147         but there can only be one provider with the same authority activated at any given
+148         point; so if the end user has two or more different apps that use Facebook SDK, only the
+149         first one will be able to use the provider. To work around this problem, we use the
+150         following placeholder in the authority to identify each host application as if it was
+151         a completely different provider.
+152        -->
+153        <provider
+153-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:39:9-42:40
+154            android:name="com.facebook.internal.FacebookInitProvider"
+154-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:40:13-70
+155            android:authorities="com.montage.io.FacebookInitProvider"
+155-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:41:13-72
+156            android:exported="false" />
+156-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:42:13-37
+157
+158        <receiver
+158-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:44:9-50:20
+159            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+159-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:45:13-86
+160            android:exported="false" >
+160-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:46:13-37
+161            <intent-filter>
+161-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:47:13-49:29
+162                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+162-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:48:17-95
+162-->[com.facebook.android:facebook-core:8.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\e9a6a86c2a7ba2a92d9fc60ebde6740b\jetified-facebook-core-8.1.0\AndroidManifest.xml:48:25-92
+163            </intent-filter>
+164        </receiver>
+165        <!--
+166             FirebaseMessagingService performs security checks at runtime,
+167             but set to not exported to explicitly avoid allowing another app to call it.
+168        -->
+169        <service
+169-->[com.google.firebase:firebase-messaging:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a227190f08d0377782ba774765623939\jetified-firebase-messaging-20.3.0\AndroidManifest.xml:28:9-35:19
+170            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+170-->[com.google.firebase:firebase-messaging:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a227190f08d0377782ba774765623939\jetified-firebase-messaging-20.3.0\AndroidManifest.xml:29:13-82
+171            android:directBootAware="true"
+171-->[com.google.firebase:firebase-messaging:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a227190f08d0377782ba774765623939\jetified-firebase-messaging-20.3.0\AndroidManifest.xml:30:13-43
+172            android:exported="false" >
+172-->[com.google.firebase:firebase-messaging:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\a227190f08d0377782ba774765623939\jetified-firebase-messaging-20.3.0\AndroidManifest.xml:31:13-37
+173            <intent-filter android:priority="-500" >
+173-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-11:29
+174                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+174-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:17-78
+174-->[:firebase_messaging] C:\Users\Rahul Makwana\Downloads\Montagesocal_montage_flutter\build\firebase_messaging\intermediates\library_manifest\debug\AndroidManifest.xml:10:25-75
+175            </intent-filter>
+176        </service>
+177
+178        <receiver
+178-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:37:9-44:20
+179            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+179-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:38:13-78
+180            android:exported="true"
+180-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:39:13-36
+181            android:permission="com.google.android.c2dm.permission.SEND" >
+181-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:40:13-73
+182            <intent-filter>
+182-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:41:13-43:29
+183                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+183-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:42:17-81
+183-->[com.google.firebase:firebase-iid:20.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\15e27f388fa6d874488dbe33bfb5f19c\firebase-iid-20.3.0\AndroidManifest.xml:42:25-78
+184            </intent-filter>
+185        </receiver>
+186        <receiver
+186-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:29:9-33:20
+187            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+187-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:30:13-85
+188            android:enabled="true"
+188-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:31:13-35
+189            android:exported="false" >
+189-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:32:13-37
+190        </receiver>
+191
+192        <service
+192-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:35:9-38:40
+193            android:name="com.google.android.gms.measurement.AppMeasurementService"
+193-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:36:13-84
+194            android:enabled="true"
+194-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:37:13-35
+195            android:exported="false" />
+195-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:38:13-37
+196        <service
+196-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:39:9-43:72
+197            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+197-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:40:13-87
+198            android:enabled="true"
+198-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:41:13-35
+199            android:exported="false"
+199-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:42:13-37
+200            android:permission="android.permission.BIND_JOB_SERVICE" />
+200-->[com.google.android.gms:play-services-measurement:17.6.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\b8f8222fda855e53e6ed9c19d9ffc7de\play-services-measurement-17.6.0\AndroidManifest.xml:43:13-69
+201
+202        <activity
+202-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:23:9-27:75
+203            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+203-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:24:13-93
+204            android:excludeFromRecents="true"
+204-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:25:13-46
+205            android:exported="false"
+205-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:26:13-37
+206            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+206-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:27:13-72
+207        <!--
+208            Service handling Google Sign-In user revocation. For apps that do not integrate with
+209            Google Sign-In, this service will never be started.
+210        -->
+211        <service
+211-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:33:9-36:110
+212            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+212-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:34:13-89
+213            android:exported="true"
+213-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:35:13-36
+214            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+214-->[com.google.android.gms:play-services-auth:16.0.1] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\d8ef9f6156c9363abe2f5ff2e45e064b\jetified-play-services-auth-16.0.1\AndroidManifest.xml:36:13-107
+215
+216        <provider
+216-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\1800a58a68a730436aec544ca4fb93d6\jetified-firebase-common-19.3.0\AndroidManifest.xml:26:9-30:39
+217            android:name="com.google.firebase.provider.FirebaseInitProvider"
+217-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\1800a58a68a730436aec544ca4fb93d6\jetified-firebase-common-19.3.0\AndroidManifest.xml:27:13-77
+218            android:authorities="com.montage.io.firebaseinitprovider"
+218-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\1800a58a68a730436aec544ca4fb93d6\jetified-firebase-common-19.3.0\AndroidManifest.xml:28:13-72
+219            android:exported="false"
+219-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\1800a58a68a730436aec544ca4fb93d6\jetified-firebase-common-19.3.0\AndroidManifest.xml:29:13-37
+220            android:initOrder="100" />
+220-->[com.google.firebase:firebase-common:19.3.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\1800a58a68a730436aec544ca4fb93d6\jetified-firebase-common-19.3.0\AndroidManifest.xml:30:13-36
+221
+222        <activity
+222-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\6eb14f512292913515d869914807ad40\play-services-base-17.1.0\AndroidManifest.xml:23:9-26:75
+223            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+223-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\6eb14f512292913515d869914807ad40\play-services-base-17.1.0\AndroidManifest.xml:24:13-79
+224            android:exported="false"
+224-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\6eb14f512292913515d869914807ad40\play-services-base-17.1.0\AndroidManifest.xml:25:13-37
+225            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+225-->[com.google.android.gms:play-services-base:17.1.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\6eb14f512292913515d869914807ad40\play-services-base-17.1.0\AndroidManifest.xml:26:13-72
+226
+227        <meta-data
+227-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\027f3066d2552e008c6462298f84648f\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+228            android:name="com.google.android.gms.version"
+228-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\027f3066d2552e008c6462298f84648f\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+229            android:value="@integer/google_play_services_version" />
+229-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\027f3066d2552e008c6462298f84648f\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+230
+231        <service
+231-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\96b48096cc6858db55ff0b9cadbfdd91\transport-backend-cct-2.2.0\AndroidManifest.xml:29:9-35:19
+232            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+232-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\96b48096cc6858db55ff0b9cadbfdd91\transport-backend-cct-2.2.0\AndroidManifest.xml:30:13-103
+233            android:exported="false" >
+233-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\96b48096cc6858db55ff0b9cadbfdd91\transport-backend-cct-2.2.0\AndroidManifest.xml:31:13-37
+234            <meta-data
+234-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\96b48096cc6858db55ff0b9cadbfdd91\transport-backend-cct-2.2.0\AndroidManifest.xml:32:13-34:39
+235                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+235-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\96b48096cc6858db55ff0b9cadbfdd91\transport-backend-cct-2.2.0\AndroidManifest.xml:33:17-94
+236                android:value="cct" />
+236-->[com.google.android.datatransport:transport-backend-cct:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\96b48096cc6858db55ff0b9cadbfdd91\transport-backend-cct-2.2.0\AndroidManifest.xml:34:17-36
+237        </service>
+238        <service
+238-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34066712d6449b2703aaeeeb718baf20\transport-runtime-2.2.0\AndroidManifest.xml:26:9-30:19
+239            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+239-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34066712d6449b2703aaeeeb718baf20\transport-runtime-2.2.0\AndroidManifest.xml:27:13-117
+240            android:exported="false"
+240-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34066712d6449b2703aaeeeb718baf20\transport-runtime-2.2.0\AndroidManifest.xml:28:13-37
+241            android:permission="android.permission.BIND_JOB_SERVICE" >
+241-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34066712d6449b2703aaeeeb718baf20\transport-runtime-2.2.0\AndroidManifest.xml:29:13-69
+242        </service>
+243
+244        <receiver
+244-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34066712d6449b2703aaeeeb718baf20\transport-runtime-2.2.0\AndroidManifest.xml:32:9-34:40
+245            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+245-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34066712d6449b2703aaeeeb718baf20\transport-runtime-2.2.0\AndroidManifest.xml:33:13-132
+246            android:exported="false" />
+246-->[com.google.android.datatransport:transport-runtime:2.2.0] C:\Users\Rahul Makwana\.gradle\caches\transforms-2\files-2.1\34066712d6449b2703aaeeeb718baf20\transport-runtime-2.2.0\AndroidManifest.xml:34:13-37
+247    </application>
+248
+249</manifest>

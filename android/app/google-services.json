@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "533991215882",
+    "project_id": "montage-7319b",
+    "storage_bucket": "montage-7319b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533991215882:android:cbce64e39e0f4c6308a0f3",
+        "android_client_info": {
+          "package_name": "com.montage.io"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533991215882-a53fpknaq5nbepg49uqq8kf084bpqqks.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.montage.io",
+            "certificate_hash": "817bc11ff61c271f341cb26d93c7cbb5693bfb0e"
+          }
+        },
+        {
+          "client_id": "533991215882-6ir02r6kdjc5o9tt6050unsjgekt3edi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQAQnYw0tJfmzl6wGeN7MKNvE8ydYwTKU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533991215882-6ir02r6kdjc5o9tt6050unsjgekt3edi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

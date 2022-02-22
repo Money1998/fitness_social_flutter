@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\Rahul Makwana\\Downloads\\Montagesocal_montage_flutter\\build\\sign_in_with_apple\\intermediates\\res\\merged\\release\\values-el\\values-el.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Rahul Makwana\\.gradle\\caches\\transforms-2\\files-2.1\\8b82793e435830a090b512b640083076\\browser-1.2.0\\res\\values-el\\values-el.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,165,272,397",
+                        "endColumns": "109,106,124,108",
+                        "endOffsets": "160,267,392,501"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Rahul Makwana\\.gradle\\caches\\transforms-2\\files-2.1\\3aaf6e5219b7f981ec263df919098c6f\\core-1.1.0\\res\\values-el\\values-el.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "506",
+                        "endColumns": "100",
+                        "endOffsets": "602"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "C:\\Users\\Rahul Makwana\\Downloads\\Montagesocal_montage_flutter\\build\\sign_in_with_apple\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-el\\values-el.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Rahul Makwana\\.gradle\\caches\\transforms-2\\files-2.1\\8b82793e435830a090b512b640083076\\browser-1.2.0\\res\\values-el\\values-el.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,165,272,397",
+                        "endColumns": "109,106,124,108",
+                        "endOffsets": "160,267,392,501"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Rahul Makwana\\.gradle\\caches\\transforms-2\\files-2.1\\3aaf6e5219b7f981ec263df919098c6f\\core-1.1.0\\res\\values-el\\values-el.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "506",
+                        "endColumns": "100",
+                        "endOffsets": "602"
+                    }
+                }
+            ]
+        }
+    ]
+}
