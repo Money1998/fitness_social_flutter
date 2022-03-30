@@ -27,7 +27,7 @@
     <string msgid="2650565705514630347" name="abc_shareactionprovider_share_with">"공유 대상:"</string>
     <string msgid="9009661856846212431" name="abc_shareactionprovider_share_with_application">"<ns1:g id="APPLICATION_NAME">%s</ns1:g>과(와) 공유"</string>
     <string msgid="6389460216547290468" name="abc_toolbar_collapse_description">"접기"</string>
-    <string gender="unknown" name="com_facebook_device_auth_instructions">&lt;b>facebook.com/device&lt;/b>에 방문하여 위 코드를 입력하세요.</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">&lt;b>facebook.com/device&lt;/b>를 방문하여 위 코드를 입력하세요.</string>
     <string gender="unknown" name="com_facebook_image_download_unknown_error">이미지를 다운로드하는 중 예기치 않은 오류가 발생했습니다.</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_message">WebView 로그인에 인터넷 권한이 필요합니다</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_title">AndroidManifest 오류</string>
@@ -73,11 +73,11 @@
     <string msgid="2615365786337886368" name="fallback_menu_item_copy_link">"링크 복사"</string>
     <string msgid="8984733760067120953" name="fallback_menu_item_open_in_browser">"브라우저에서 열기"</string>
     <string msgid="271185644269364308" name="fallback_menu_item_share_link">"링크 공유"</string>
-    <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"기타"</string>
+    <string name="fcm_fallback_notification_channel_label">기타</string>
     <string msgid="4221330012095125431" name="pause_button_content_description">"일시중지"</string>
     <string msgid="6034272287948142298" name="play_button_content_description">"재생"</string>
     <string msgid="730395136688082741" name="search_menu_title">"검색"</string>
     <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"다음 항목으로 건너뛰기"</string>
     <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"이전 항목으로 건너뛰기"</string>
-    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

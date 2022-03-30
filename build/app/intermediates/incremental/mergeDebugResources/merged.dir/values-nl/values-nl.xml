@@ -73,11 +73,11 @@
     <string msgid="2615365786337886368" name="fallback_menu_item_copy_link">"Link kopiëren"</string>
     <string msgid="8984733760067120953" name="fallback_menu_item_open_in_browser">"Openen in browser"</string>
     <string msgid="271185644269364308" name="fallback_menu_item_share_link">"Link delen"</string>
-    <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Overige"</string>
+    <string name="fcm_fallback_notification_channel_label">Overige</string>
     <string msgid="4221330012095125431" name="pause_button_content_description">"Pauzeren"</string>
     <string msgid="6034272287948142298" name="play_button_content_description">"Afspelen"</string>
     <string msgid="730395136688082741" name="search_menu_title">"Zoeken"</string>
     <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"Overslaan en naar volgend item"</string>
     <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"Overslaan en naar vorig item"</string>
-    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

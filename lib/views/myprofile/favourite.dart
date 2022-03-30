@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
 import 'package:montage/constants/app_strings.dart';
+import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/customs/custom_subpage_appBar.dart';
 import 'package:montage/customs/responsive_widget.dart';
 import 'package:montage/module/api_presenter.dart';
@@ -71,8 +72,7 @@ class _FavouriteViewState extends State<FavouriteView> implements ApiCallBacks {
                         borderRadius: BorderRadius.circular(12),
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
+                            Navigator.of(context).push(CustomPageRoute(child:
                                     AudioList(favoritesList[index]['_id'])));
                           },
                           child: Stack(
@@ -88,21 +88,7 @@ class _FavouriteViewState extends State<FavouriteView> implements ApiCallBacks {
                                 width: MediaQuery.of(context).size.width,
                                 // color: Color.fromRGBO(255, 255, 255, 0.6),
                                 colorBlendMode: BlendMode.modulate,
-                              )
-                              /*CachedNetworkImage(
-                                  imageUrl: RequestCode.apiEndPoint +
-                                      favoritesList[index]['image'],
-                                  fit: BoxFit.cover,
-                                  height: MediaQuery.of(context).size.height,
-                                  width: MediaQuery.of(context).size.width,
-                                  // color: Color.fromRGBO(255, 255, 255, 0.6),
-                                  colorBlendMode: BlendMode.modulate,
-                                  placeholder: (context, url) => Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                  // Image.network(
-                                  //     ,fit: BoxFit.cover,),
-                                  )*/,
+                              ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 padding: EdgeInsets.all(paddingSmall + 4),
@@ -142,7 +128,7 @@ class _FavouriteViewState extends State<FavouriteView> implements ApiCallBacks {
   }
 
   appBar() {
-    return SubPageAppBar(title: AppStrings.favorites);
+    return SubPageAppBar(title: AppStrings.montages);
   }
 
   @override

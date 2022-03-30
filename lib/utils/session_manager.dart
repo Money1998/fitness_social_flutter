@@ -1,23 +1,33 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionManager {
 
-  static void setListDynamicData(String key, String val) async {
+  static setListDynamicData(String key, List<dynamic> val) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString(key, json.encode(val));
+    prefs.setStringList(key, val);
   }
 
-  static Future<String> getListDynamicData(String key) async {
+  static Future<List<dynamic>> getListDynamicData(String key) async {
     final prefs = await SharedPreferences.getInstance();
-    return json.decode(prefs.getString(key));
+    var yourList = prefs.getStringList(key);
+    return yourList;
   }
 
   static void setStringData(String key, String val) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(key, val);
+  }
+
+  static void setDateTime(String key, String val) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString(key, val);
+  }
+
+  static Future<String> getDateTime(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key) ?? '';
   }
 
   static void setStringList(String key, List<String> val) async {

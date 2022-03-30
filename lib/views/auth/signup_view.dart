@@ -120,9 +120,9 @@ class _SignupViewState extends State<SignupView> implements ApiCallBacks {
 
     FacebookAuth.instance
         .login(loginBehavior: LoginBehavior.dialogOnly)
-        .then((token) {
+        .then((accessToken) {
       final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(token.accessToken.token);
+          FacebookAuthProvider.credential(accessToken.accessToken.token);
       FirebaseAuth.instance
           .signInWithCredential(facebookAuthCredential)
           .then((userCredential) {

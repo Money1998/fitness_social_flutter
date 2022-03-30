@@ -13,6 +13,7 @@ import 'package:montage/api/RequestCode.dart';
 import 'package:montage/api/WebFields.dart';
 import 'package:montage/constants/app_strings.dart';
 import 'package:montage/constants/assets_images.dart';
+import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/constants/endpoints.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/constants/svg_images.dart';
@@ -104,9 +105,9 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
 
     FacebookAuth.instance
         .login(loginBehavior: LoginBehavior.dialogOnly)
-        .then((token) {
+        .then((accessToken) {
       final OAuthCredential facebookAuthCredential =
-      FacebookAuthProvider.credential(token.accessToken.token);
+      FacebookAuthProvider.credential(accessToken.accessToken.token);
       FirebaseAuth.instance
           .signInWithCredential(facebookAuthCredential)
           .then((userCredential) {
@@ -337,8 +338,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
                 Utilities.loading(context);
                 onClickFacebookLogin();
               } else {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GuidlineView()));
+                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
               }
             },
             child: socialIcon(
@@ -354,8 +354,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
 
                 onClickGoogleLogin();
               } else {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GuidlineView()));
+                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
               }
             },
             child: socialIcon(
@@ -378,8 +377,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
                 Utilities.loading(context);
                 onClickAppleLogin();
               } else {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GuidlineView()));
+                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
               }
             },
           )
@@ -398,8 +396,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
                 Utilities.loading(context);
                 onClickFacebookLogin();
               } else {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GuidlineView()));
+                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
               }
             },
             child: socialIcon(
@@ -414,8 +411,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
               if (_result) {
                 onClickGoogleLogin();
               } else {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GuidlineView()));
+                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
               }
             },
             child: socialIcon(
@@ -477,7 +473,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
               Navigator.pushReplacementNamed(context, RouteSignupView);
             } else {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => GuidlineView()));
+                  CustomPageRoute(child: GuidlineView()));
             }
           },
           child: Text(

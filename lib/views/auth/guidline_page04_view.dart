@@ -16,7 +16,7 @@ class GuidlineView04 extends StatefulWidget {
 
 class _GuidlineView04State extends State<GuidlineView04> {
   var selectedIndex = -1;
-   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   List<RadioModel> buttonData = new List<RadioModel>();
   commonSizedBox(height) {
     return SizedBox(
@@ -44,6 +44,16 @@ class _GuidlineView04State extends State<GuidlineView04> {
   Widget build(BuildContext context) {
     return ResponsiveWidget(
       scaffoldKey: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor:Color.fromRGBO(244, 221, 254, 0.7),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, size: 30, color: colorTheme),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+      ),
       builder: (context, constraints) {
         return Container(
           decoration: BoxDecoration(gradient: lightgradientBG),
@@ -58,12 +68,9 @@ class _GuidlineView04State extends State<GuidlineView04> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    commonSizedBox(paddingLarge*4),
-                    // titleTxt(),
-                  
+                    commonSizedBox(paddingLarge),
                     subTitleText(),
                     commonSizedBox(paddingLarge*5),
-                   
                     Column(
                       children: buttons(),
                     ),
@@ -83,7 +90,7 @@ class _GuidlineView04State extends State<GuidlineView04> {
   buttons() {
     return List.generate(
       2,
-      (index) {
+          (index) {
         return InkWell(
           splashColor: colorPrimary,
           onTap: () {
@@ -142,9 +149,9 @@ class _GuidlineView04State extends State<GuidlineView04> {
               Utilities.showError(scaffoldKey, 'Please select option',);
             }else{
               globals.userType = buttonData[selectedIndex].buttonText;
-               Navigator.pushNamed(context, RouteGuildlinePage05);
+              Navigator.pushNamed(context, RouteGuildlinePage05);
             }
-           
+
           },
         ),
       ],
@@ -173,22 +180,31 @@ class Button extends StatelessWidget {
         children: <Widget>[
           _item.isSelected
               ? CommonButton(
-                  backgroundColor: lightFonts,
-                  isleadIcon: true,
-                  leadIcon: _item.leadIcon,
-                  isRightArrow: false,
-                  width: MediaQuery.of(context).size.width / 1.4,
-                  buttonText: _item.buttonText,
-                )
+            backgroundColor: lightFonts,
+            isleadIcon: true,
+            leadIcon: _item.leadIcon,
+            isRightArrow: false,
+            width: MediaQuery.of(context).size.width / 1.4,
+            buttonText: _item.buttonText,
+          )
               : CommonButton(
-                  isleadIcon: true,
-                  leadIcon: _item.leadIcon,
-                  isRightArrow: false,
-                  width: MediaQuery.of(context).size.width / 1.4,
-                  buttonText: _item.buttonText,
-                ),
+            isleadIcon: true,
+            leadIcon: _item.leadIcon,
+            isRightArrow: false,
+            width: MediaQuery.of(context).size.width / 1.4,
+            buttonText: _item.buttonText,
+          ),
         ],
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+

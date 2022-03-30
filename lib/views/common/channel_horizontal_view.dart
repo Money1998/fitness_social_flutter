@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:montage/api/RequestCode.dart';
+import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/dimens.dart';
 import 'package:montage/utils/text_styles.dart';
@@ -91,8 +92,7 @@ class _CommonHorizontalListViewState extends State<ChannelHorizontalListView> {
                       itemBuilder: (BuildContext ctxt, int index) => InkWell(
                           onTap: () {
                             debugPrint(index.toString());
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => ConnectDetailCopy(
+                            Navigator.of(context).push(CustomPageRoute(child: ConnectDetailCopy(
                                     widget.channelList[index]['_id'],
                                     widget.channelList[index]['name'],
                                     widget.channelList[index]['desc'],

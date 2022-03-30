@@ -27,7 +27,7 @@
     <string msgid="2650565705514630347" name="abc_shareactionprovider_share_with">"แชร์กับ"</string>
     <string msgid="9009661856846212431" name="abc_shareactionprovider_share_with_application">"แชร์ทาง <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="6389460216547290468" name="abc_toolbar_collapse_description">"ยุบ"</string>
-    <string gender="unknown" name="com_facebook_device_auth_instructions">ไปที่ &lt;b>facebook.com/device&lt;/b> แล้วป้อนรหัสที่ปรากฏด้านล่าง</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">ไปที่ &lt;b>facebook.com/device&lt;/b> แล้วป้อนรหัสที่แสดงด้านบน</string>
     <string gender="unknown" name="com_facebook_image_download_unknown_error">เกิดข้อผิดพลาดที่ไม่คาดคิดขณะดาวน์โหลดภาพ</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_message">การเข้าสู่ระบบ WebView ต้องได้รับสิทธิ์การอนุญาตอินเทอร์เน็ต</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_title">ข้อผิดพลาด AndroidManifest</string>
@@ -73,11 +73,11 @@
     <string msgid="2615365786337886368" name="fallback_menu_item_copy_link">"คัดลอกลิงก์"</string>
     <string msgid="8984733760067120953" name="fallback_menu_item_open_in_browser">"เปิดในเบราว์เซอร์"</string>
     <string msgid="271185644269364308" name="fallback_menu_item_share_link">"แชร์ลิงก์"</string>
-    <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"เบ็ดเตล็ด"</string>
+    <string name="fcm_fallback_notification_channel_label">เบ็ดเตล็ด</string>
     <string msgid="4221330012095125431" name="pause_button_content_description">"หยุดชั่วคราว"</string>
     <string msgid="6034272287948142298" name="play_button_content_description">"เล่น"</string>
     <string msgid="730395136688082741" name="search_menu_title">"ค้นหา"</string>
     <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"ข้ามไปยังรายการถัดไป"</string>
     <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"ข้ามไปยังรายการก่อนหน้า"</string>
-    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

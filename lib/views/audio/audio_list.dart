@@ -9,6 +9,7 @@ import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
 import 'package:montage/api/WebFields.dart';
 import 'package:montage/constants/app_strings.dart';
+import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/constants/svg_images.dart';
 import 'package:montage/customs/custom_subpage_appBar.dart';
 import 'package:montage/customs/responsive_widget.dart';
@@ -120,8 +121,7 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                   .mediaType ==
                                                   "Audio") {
                                                 Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
+                                                    CustomPageRoute(child:
                                                             AudioPlayerList(
                                                                 _trackDetail)));
                                               } else if (_trackDetail
@@ -137,8 +137,7 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                     .link);
                                               } else {
                                                 Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
+                                                    CustomPageRoute(child:
                                                             VideoPlayerList(_trackDetail
                                                                 .playlists[
                                                             0]
@@ -154,7 +153,7 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                 _trackDetail.playlists.length
                                                         .toString() +
                                                     " Tracks " +
-                                                    convertTime(totalTime()),
+                                                    convertTime(totalTime()).substring(0, 4),
                                                 style: primaryMedium(
                                                     fontSize: textMedium),
                                               ),
@@ -168,16 +167,10 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                   Icons.play_arrow,
                                                   size: smallIconSize * 1.5,
                                                 ),
-                                              )
+                                              ),
                                             ],
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: paddingMedium * 2,
-                                        ),
-                                        Html(
-                                            data:
-                                                "${_trackDetail.description}"),
                                         SizedBox(
                                           height: paddingLarge,
                                         ),
@@ -189,17 +182,17 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                           decoration: BoxDecoration(
                                             color: colorPrimary,
                                             borderRadius:
-                                                BorderRadius.circular(12),
+                                            BorderRadius.circular(12),
                                           ),
                                           child: Column(
                                             children: List.generate(
                                               _trackDetail.playlists.length,
-                                              (index) => InkWell(
+                                                  (index) => InkWell(
                                                 onTap: () {
                                                   if (_trackDetail
-                                                              .playlists[index]
-                                                              .mediaType !=
-                                                          null &&
+                                                      .playlists[index]
+                                                      .mediaType !=
+                                                      null &&
                                                       _trackDetail
                                                           .playlists[index]
                                                           .mediaType
@@ -210,17 +203,16 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                             .mediaType);
 
                                                     if (_trackDetail
-                                                            .playlists[index]
-                                                            .mediaType ==
+                                                        .playlists[index]
+                                                        .mediaType ==
                                                         "Audio") {
                                                       Navigator.of(context).push(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  AudioPlayerList(
-                                                                      _trackDetail)));
+                                                          CustomPageRoute(child:
+                                                          AudioPlayerList(
+                                                              _trackDetail)));
                                                     } else if (_trackDetail
-                                                            .playlists[index]
-                                                            .mediaType ==
+                                                        .playlists[index]
+                                                        .mediaType ==
                                                         "Link") {
                                                       debugPrint(_trackDetail
                                                           .playlists[index]
@@ -231,20 +223,19 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                           .link);
                                                     } else {
                                                       Navigator.of(context).push(
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  VideoPlayerList(_trackDetail
-                                                                      .playlists[
-                                                                          index]
-                                                                      .video)));
+                                                          CustomPageRoute(child:
+                                                          VideoPlayerList(_trackDetail
+                                                              .playlists[
+                                                          index]
+                                                              .video)));
                                                     }
                                                   }
                                                 },
                                                 child: Container(
                                                   color:
-                                                      index == 0 || index == 1
-                                                          ? colorBackgroundgrey
-                                                          : colorBackground,
+                                                  index == 0 || index == 1
+                                                      ? colorBackgroundgrey
+                                                      : colorBackground,
                                                   padding: EdgeInsets.only(
                                                     top: paddingSmall * 2,
                                                     bottom: paddingSmall * 2,
@@ -253,8 +244,8 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                     children: [
                                                       Flexible(
                                                           flex: 6,
@@ -262,18 +253,18 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                             children: [
                                                               Text(
                                                                 (index + 1)
-                                                                        .toString() +
+                                                                    .toString() +
                                                                     '  ' +
                                                                     _trackDetail
                                                                         .playlists[
-                                                                            index]
+                                                                    index]
                                                                         .title,
                                                                 maxLines: 15,
                                                                 style:
-                                                                    onBackgroundLightRegular(
+                                                                onBackgroundLightRegular(
                                                                   fontSize:
-                                                                      textSmall +
-                                                                          2,
+                                                                  textSmall +
+                                                                      2,
                                                                 ),
                                                               )
                                                             ],
@@ -282,26 +273,26 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                         flex: 4,
                                                         child: Text(
                                                           _trackDetail
-                                                                      .playlists[
-                                                                          index]
-                                                                      .mediaType ==
-                                                                  "Audio"
+                                                              .playlists[
+                                                          index]
+                                                              .mediaType ==
+                                                              "Audio"
                                                               ? convertTime(int
-                                                                  .parse(_trackDetail
-                                                                      .playlists[
-                                                                          index]
-                                                                      .time))
+                                                              .parse(_trackDetail
+                                                              .playlists[
+                                                          index]
+                                                              .time)).substring(0, 4)
                                                               : _trackDetail
-                                                                          .playlists[
-                                                                              index]
-                                                                          .mediaType ==
-                                                                      "Video"
-                                                                  ? "Video"
-                                                                  : "Youtube",
+                                                              .playlists[
+                                                          index]
+                                                              .mediaType ==
+                                                              "Video"
+                                                              ? "Video"
+                                                              : "Youtube",
                                                           style:
-                                                              onBackgroundRegular(
+                                                          onBackgroundRegular(
                                                             fontSize:
-                                                                textSmall + 2,
+                                                            textSmall + 2,
                                                           ),
                                                         ),
                                                       )
@@ -315,26 +306,20 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                         SizedBox(
                                           height: paddingLarge * 2,
                                         ),
-                                        InkWell(
-                                          child: CommonButton(
-                                            buttonText:
-                                                AppStrings.addToMyMontage,
+                                        Text(
+                                          _trackDetail.title,
+                                          style: onBackgroundLightBold(
+                                            fontSize: textMedium,
                                           ),
-                                          onTap: () async {
-                                            var userId = await SessionManager
-                                                .getStringData(
-                                                    WebFields.USER_ID);
-                                            Utilities.loading(context,
-                                                status: true);
-                                            if (_trackDetail.favorites.length ==
-                                                0) {
-                                              apiPresenter.favorites(
-                                                  userId, _trackDetail.id);
-                                            } else {
-                                              apiPresenter.unFavorites(
-                                                  _trackDetail.favorites[0].id);
-                                            }
-                                          },
+                                        ),
+                                        SizedBox(
+                                          height: paddingMedium * 2,
+                                        ),
+                                        Html(
+                                            data:
+                                                "${_trackDetail.description}"),
+                                        SizedBox(
+                                          height: MediaQuery.of(context).size.height*0.2,
                                         ),
                                         SizedBox(
                                           height: paddingLarge * 1.5,
@@ -371,51 +356,84 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                   .width,
                                             ),
                                           ))),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                      left: paddingLarge * 1.5,
-                                      bottom: 0,
-                                      right: paddingLarge * 1.5,
-                                    ),
+                                  // Padding(
+                                  //   padding: EdgeInsets.only(
+                                  //     left: paddingLarge * 1.5,
+                                  //     bottom: 0,
+                                  //     right: paddingLarge * 1.5,
+                                  //   ),
+                                  //   child: Container(
+                                  //     width: MediaQuery.of(context).size.width,
+                                  //     padding: EdgeInsets.all(paddingSmall + 4),
+                                  //     decoration: BoxDecoration(
+                                  //       color:
+                                  //           Color(0xff511F74).withOpacity(0.5),
+                                  //       borderRadius: BorderRadius.only(
+                                  //         bottomLeft: Radius.circular(12),
+                                  //         bottomRight: Radius.circular(12),
+                                  //       ),
+                                  //     ),
+                                  //     child: Column(
+                                  //       mainAxisAlignment:
+                                  //           MainAxisAlignment.start,
+                                  //       crossAxisAlignment:
+                                  //           CrossAxisAlignment.start,
+                                  //       children: [
+                                  //         Text(
+                                  //           _trackDetail.title,
+                                  //           style: primaryMedium(
+                                  //             fontSize: textMedium,
+                                  //           ),
+                                  //         ),
+                                  //         SizedBox(
+                                  //           height: paddingVerySmall / 1.5,
+                                  //         ),
+                                  //         Text(
+                                  //           _trackDetail.playlists.length
+                                  //                   .toString() +
+                                  //               " Tracks",
+                                  //           style: primaryRegular(
+                                  //             fontSize: textSmall,
+                                  //           ),
+                                  //         ),
+                                  //       ],
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                              Positioned.fill(
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      padding: EdgeInsets.all(paddingSmall + 4),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            Color(0xff511F74).withOpacity(0.5),
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(12),
-                                          bottomRight: Radius.circular(12),
+                                      width: double.infinity,
+                                      height: 50,
+                                      child: InkWell(
+                                        child: CommonButton(
+                                          buttonText:
+                                          AppStrings.addToMyMontage,
                                         ),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            _trackDetail.title,
-                                            style: primaryMedium(
-                                              fontSize: textMedium,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: paddingVerySmall / 1.5,
-                                          ),
-                                          Text(
-                                            _trackDetail.playlists.length
-                                                    .toString() +
-                                                " Tracks",
-                                            style: primaryRegular(
-                                              fontSize: textSmall,
-                                            ),
-                                          ),
-                                        ],
+                                        onTap: () async {
+                                          var userId = await SessionManager
+                                              .getStringData(
+                                              WebFields.USER_ID);
+                                          Utilities.loading(context,
+                                              status: true);
+                                          if (_trackDetail.favorites.length ==
+                                              0) {
+                                            apiPresenter.favorites(
+                                                userId, _trackDetail.id);
+                                          } else {
+                                            apiPresenter.unFavorites(
+                                                _trackDetail.favorites[0].id);
+                                          }
+                                        },
                                       ),
                                     ),
                                   ),
-                                ],
+                                ),
                               )
                             ],
                           ),

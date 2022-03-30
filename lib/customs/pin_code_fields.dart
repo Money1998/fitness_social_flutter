@@ -383,7 +383,7 @@ class _PinCodeTextFieldState extends State<PinCodeTextField>  {
               keyboardType: widget.textInputType,
               textCapitalization: widget.textCapitalization,
               inputFormatters: <TextInputFormatter>[
-                WhitelistingTextInputFormatter.digitsOnly,
+                FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(
                   widget.length,
                 ), // this limits the input length

@@ -26,6 +26,7 @@ var lightgradientBG = LinearGradient(
 const colorPrimary = const Color(0xffFFFFFF);
 const colorTheme = const Color(0xff7817C8);
 const lightFonts = const Color(0xffCB78E8);
+const lightAppbar = const Color(0xfff4ddfe);
 const inactivetabColor = const Color(0xff636363);
 var whiteWithOpacityFonts = const Color(0xffFFFFFF).withOpacity(0.4);
 var dividerColor = const Color(0xffD8D8D8);

@@ -52,11 +52,12 @@ class ApiPresenter {
   }
 
   Map<String, dynamic> toChangePasswordJson(
-          String currentPass, String newPass) =>
+      String currentPass, String newPass) =>
       {
         WebFields.CURRENT_PASS: currentPass,
         WebFields.NEW_PASS: newPass,
       };
+
 
   /* Update Profile */
   doUpdateProfile(String fullName, String gender, String bio, String personType,
@@ -113,6 +114,16 @@ class ApiPresenter {
     RestClient(_apiCallBack).post(requestParam, RequestCode.FAVORITES_LIST);
   }
 
+  /* for Media Listing */
+  getMediaListing(BuildContext context, String size, String page) async {
+    Map requestParam = toJson(
+        size, page, await SessionManager.getStringData(WebFields.USER_ID));
+    print(requestParam);
+    print("REQUEST PARAMA");
+    RestClient(_apiCallBack).post(requestParam, RequestCode.FAVORITES_LIST);
+  }
+
+
   /* send feedback */
   feedBack(String userId, String title, String email, String desc) async {
     Map requestParam = toFeedBack(userId, title, email, desc);
@@ -128,6 +139,8 @@ class ApiPresenter {
   getSignUpQuestion(BuildContext context) async {
     RestClient(_apiCallBack).get(RequestCode.SIGN_UP_QUIZ);
   }
+
+
 
   Map<String, dynamic> toJson(String size, String page, String userId) => {
         WebFields.SIZE: size,

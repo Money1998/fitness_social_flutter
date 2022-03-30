@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:montage/api/RequestCode.dart';
 import 'package:montage/constants/assets_images.dart';
@@ -15,6 +14,7 @@ import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/dimens.dart';
 import 'package:montage/utils/text_styles.dart';
 import 'package:montage/utils/utilites.dart';
+import 'package:just_audio/just_audio.dart';
 
 class AudioPlayerList extends StatefulWidget {
   final TrackDetail trackDetail;

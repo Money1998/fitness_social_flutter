@@ -1,12 +1,19 @@
+import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
+import 'package:montage/api/WebUrl.dart';
+import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/customs/responsive_widget.dart';
 import 'package:montage/module/api_presenter.dart';
 import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/dimens.dart';
+import 'package:montage/utils/session_manager.dart';
 import 'package:montage/utils/text_styles.dart';
 import 'package:montage/views/audio/audio_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +37,7 @@ class _ChargeViewState extends State<ChargeView> implements ApiCallBacks {
 
   @override
   void initState() {
-    setChargeCount();
+    clickPageTypeCount("CHARGE");
     apiPresenter.getPostList(context, "CHARGE");
     super.initState();
   }
@@ -43,6 +50,39 @@ class _ChargeViewState extends State<ChargeView> implements ApiCallBacks {
     } else {
       charge++;
       prefs.setInt('CHARGE', charge);
+    }
+  }
+
+  Future<dynamic> clickPageTypeCount(String title) async {
+    var userID = await SessionManager.getStringData('userId');
+    try {
+      Map<String, dynamic> requestParam = {
+        "user_id": userID,
+        "page_type": title
+      };
+      var param = jsonEncode(requestParam);
+      String url = WebUrl.QUESTION_URL + RequestCode.CLICK_PAGE_COUNT;
+      print(url);
+      print("requestParam => $requestParam");
+      Response response = await http
+          .post(Uri.parse(url),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: param)
+          .timeout(Duration(seconds: 30));
+
+      final responseBody = jsonDecode(response.body);
+      print(responseBody);
+      if (response.statusCode == 200) {
+        setState(() {
+          print("set Count = > $responseBody");
+        });
+      } else {
+        print("da");
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
@@ -67,8 +107,7 @@ class _ChargeViewState extends State<ChargeView> implements ApiCallBacks {
             ),
             itemBuilder: (BuildContext context, int index) => InkWell(
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AudioList(chillList[index]['_id'])));
+                Navigator.of(context).push(CustomPageRoute(child:AudioList(chillList[index]['_id'])));
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),

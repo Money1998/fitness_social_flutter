@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
 import 'package:montage/api/WebFields.dart';
+import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/model/track_detail.dart';
 import 'package:montage/module/api_presenter.dart';
 import 'package:montage/utils/colors.dart';
@@ -169,8 +170,7 @@ class _ConnectDetailState extends State<ConnectDetailCopy>
                   ],
                 ),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => CommentView(widget.id)));
+                  Navigator.of(context).push(CustomPageRoute(child: CommentView(widget.id)));
                 },
               )
             ],
@@ -257,8 +257,7 @@ class _ConnectDetailState extends State<ConnectDetailCopy>
                 leading: Text((index + 1).toString()),
                 trailing: Text(videoItemList[index]["media_type"]),
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
+                  Navigator.of(context).push(CustomPageRoute(child:
                           VideoPlayerList(videoItemList[index]["video"])));
                 },
               );
@@ -289,8 +288,7 @@ class _ConnectDetailState extends State<ConnectDetailCopy>
                   TrackDetail _trackDetail = TrackDetail(
                       title: audiItemList[index]["title"],
                       playlists: playlists);
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AudioPlayerList(_trackDetail)));
+                  Navigator.of(context).push(CustomPageRoute(child: AudioPlayerList(_trackDetail)));
                 },
               );
             },

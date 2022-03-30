@@ -27,7 +27,7 @@
     <string msgid="2650565705514630347" name="abc_shareactionprovider_share_with">"Trimiteți la"</string>
     <string msgid="9009661856846212431" name="abc_shareactionprovider_share_with_application">"Trimiteți folosind <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="6389460216547290468" name="abc_toolbar_collapse_description">"Restrângeți"</string>
-    <string gender="unknown" name="com_facebook_device_auth_instructions">Vizitează &lt;b>facebook.com/device&lt;/b> şi introdu codul de mai sus.</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">Vizitează &lt;b>facebook.com/device&lt;/b> şi introdu codul afişat mai sus.</string>
     <string gender="unknown" name="com_facebook_image_download_unknown_error">Eroare neaşteptată la descărcarea unei imagini.</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_message">Conectarea la WebView necesită permisiuni de tip INTERNET</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_title">Eroare AndroidManifest</string>
@@ -73,11 +73,11 @@
     <string msgid="2615365786337886368" name="fallback_menu_item_copy_link">"Copiați linkul"</string>
     <string msgid="8984733760067120953" name="fallback_menu_item_open_in_browser">"Deschideți în browser"</string>
     <string msgid="271185644269364308" name="fallback_menu_item_share_link">"Trimiteți linkul"</string>
-    <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Diverse"</string>
+    <string name="fcm_fallback_notification_channel_label">Diverse</string>
     <string msgid="4221330012095125431" name="pause_button_content_description">"Întrerupeți"</string>
     <string msgid="6034272287948142298" name="play_button_content_description">"Redați"</string>
     <string msgid="730395136688082741" name="search_menu_title">"Căutați"</string>
     <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"Treceți la elementul următor"</string>
     <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"Treceți la elementul anterior"</string>
-    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

@@ -23,6 +23,7 @@ class _TabViewState extends State<TabView> {
   TextEditingController searchController = TextEditingController();
   Key index;
   bool showSearchBox = false;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -106,21 +107,9 @@ class _TabViewState extends State<TabView> {
                       children: [
                         // Image.asset(AssetsImage.logo,height:60,width:60),
                         tab(0, 'Montage', SvgImages.blockLogoIc),
-                        tab(
-                          1,
-                          'Chill',
-                          SvgImages.chillTabIc,
-                        ),
-                        tab(
-                          2,
-                          'Connect',
-                          SvgImages.connectIc,
-                        ),
-                        tab(
-                          3,
-                          'Charge',
-                          SvgImages.chargeTabIc,
-                        ),
+                        tab(1, 'Chill', SvgImages.chillTabIc),
+                        tab(2, 'Connect', SvgImages.connectIc),
+                        tab(3, 'Charge', SvgImages.chargeTabIc),
                       ],
                     ),
                   ),
@@ -174,49 +163,35 @@ class _TabViewState extends State<TabView> {
                       controller: searchController,
                       cursorColor: colorBackground,
                       decoration: InputDecoration(
-                        counterText: '',
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        suffixIcon: Padding(
-                          padding: EdgeInsets.only(
-                            right: paddingSmall,
+                          counterText: '',
+                          border: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          errorBorder: InputBorder.none,
+                          disabledBorder: InputBorder.none,
+                          suffixIcon: Padding(
+                            padding: EdgeInsets.only(
+                              right: paddingSmall,
+                            ),
+                            child: Icon(Icons.mic,
+                                size: smallIconSize + 4,
+                                color: inactivetabColor),
                           ),
-                          child: Icon(
-                            Icons.mic,
-                            size: smallIconSize + 4,
-                            color: inactivetabColor,
-                          ),
-                        ),
-                        prefixIconConstraints: BoxConstraints.loose(
-                          Size.fromWidth(30),
-                        ),
-                        suffixIconConstraints: BoxConstraints.loose(
-                          Size.fromWidth(30),
-                        ),
-                        prefixIcon: Padding(
-                          padding: EdgeInsets.only(
-                            left: paddingSmall,
-                            right: paddingSmall * 2,
-                          ),
-                          child: Icon(
-                            Icons.search,
-                            color: colorTheme,
-                            size: smallIconSize + 4,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.only(
-                          bottom: paddingSmall * 2,
-                        ),
-                        hintText: 'SEARCH',
-                        hintStyle: themeFontRegular(),
-                      ),
+                          prefixIconConstraints:
+                              BoxConstraints.loose(Size.fromWidth(30)),
+                          suffixIconConstraints:
+                              BoxConstraints.loose(Size.fromWidth(30)),
+                          prefixIcon: Padding(
+                              padding: EdgeInsets.only(
+                                  left: paddingSmall, right: paddingSmall * 2),
+                              child: Icon(Icons.search,
+                                  color: colorTheme, size: smallIconSize + 4)),
+                          contentPadding:
+                              const EdgeInsets.only(bottom: paddingSmall * 2),
+                          hintText: 'SEARCH',
+                          hintStyle: themeFontRegular()),
                       style: commontextStyle(
-                        fontSize: textSmall + 2,
-                        color: colorOnBackground,
-                      ),
+                          fontSize: textSmall + 2, color: colorOnBackground),
                     ),
                   ),
                 ],
@@ -230,7 +205,7 @@ class _TabViewState extends State<TabView> {
 
   tab(index, title, icon) {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         if (_cIndex != index) {
           setState(() {
             _cIndex = index;

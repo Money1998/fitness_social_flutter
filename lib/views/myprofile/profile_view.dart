@@ -1,13 +1,19 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
+import 'package:montage/api/WebUrl.dart';
 import 'package:montage/constants/app_strings.dart';
 import 'package:montage/constants/assets_images.dart';
+import 'package:montage/constants/custom_page_route.dart';
+import 'package:montage/constants/endpoints.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/constants/svg_images.dart';
 import 'package:montage/customs/custom_subpage_appBar.dart';
@@ -25,7 +31,6 @@ import 'package:montage/views/common/common_horizontal_view.dart';
 import 'package:montage/views/common/common_profile_img.dart';
 import 'package:montage/views/common/common_sqaure_btn.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileView extends StatefulWidget {
   ProfileView({this.from});
@@ -39,9 +44,19 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   //double value = 0;
   var chillList = [];
+  List<QuestionsModel> questionList = [];
+  List<QuestionsOption> optionList = [];
+  String DateLoad = "";
+  DateTime now = new DateTime.now();
+  int currentPos = 0;
   var selectedIndex = -1;
   var favoritesList = [];
   bool isLoading = true;
+  bool isSelected = true;
+  String userId = "";
+  String questionId = "";
+  String questionTitle = "";
+  String days = "";
   int chillCount = 0;
   int connectCount = 0;
   int chargeCount = 0;
@@ -78,7 +93,10 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
 
   @override
   void initState() {
-    getDayStreakCount();
+    // getDayStreakCount();
+    getDayQuestion(RequestCode.GET_QUESTION_BY_DAY);
+    getTotalPageView(RequestCode.GET_TOTAL_PAGE_VIEW);
+
     // print(user.firstName);
 
     dbHelper = DBHelper();
@@ -127,126 +145,110 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     );
   }
 
-  Widget getDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Center(child: Text("Select Your Mood ?")),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setFeelResponse(
-                                'Bad', 'Your Mood Submit Successfully!');
-                          },
-                          child: Row(
-                            children: [
-                              Text("Bad", style: primaryLargeBold()),
-                              Icon(
-                                Icons.mood_bad,
-                                size: 30,
-                              )
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xff511F74).withOpacity(0.5),
-                            //change background color of button
-                            onPrimary: Color(0xff511F74).withOpacity(0.5),
-                            //change text color of button
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 15.0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              setFeelResponse(
-                                  'Better', 'Your Mood Submit Successfully!');
-                            });
-                          },
-                          child: Row(
-                            children: [
-                              Text("Better", style: primaryLargeBold()),
-                              Icon(
-                                Icons.mood_outlined,
-                                size: 30,
-                              )
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xff511F74).withOpacity(0.5),
-                            //change background color of button
-                            onPrimary: Color(0xff511F74).withOpacity(0.5),
-                            //change text color of button
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 15.0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              setFeelResponse(
-                                  'Good', 'Your Mood Submit Successfully!');
-                            });
-                          },
-                          child: Row(
-                            children: [
-                              Text("Good", style: primaryLargeBold()),
-                              Icon(
-                                Icons.mood_sharp,
-                                size: 30,
-                              )
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xff511F74).withOpacity(0.5),
-                            //change background color of button
-                            onPrimary: Color(0xff511F74).withOpacity(0.5),
-                            //change text color of button
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 15.0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.04,
-                      )
-                    ]),
-              )
+  Widget getButtons(String Option, bool isSelected) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: ElevatedButton(
+          onPressed: () async {
+            DateTime currentDate = new DateTime.now();
+            DateTime date = new DateTime(
+                currentDate.year, currentDate.month, currentDate.day);
+            String currentDateLoad = date.toString();
+            if (currentDateLoad != DateLoad) {
+              setFeelResponse(
+                  Option, '${Option}Your Option Submit Successfully!');
+              await SessionManager.setStringData(QUESTION_OPTION, Option);
+            }
+          },
+          child: Row(
+            children: [
+              Text(Option,
+                  style:
+                      isSelected == true ? onPrimaryBold() : themeFontBold()),
             ],
-          );
-        });
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          ),
+          style: ButtonStyle(
+              backgroundColor: isSelected == true
+                  ? MaterialStateProperty.all<Color>(
+                      Color(0xff7817C8).withOpacity(0.6))
+                  : MaterialStateProperty.all<Color>(Colors.white),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      side: BorderSide(color: colorTheme))))),
+    );
+  }
+
+  buttons() {
+    return List.generate(
+      optionList.length,
+      (index) {
+        return InkWell(
+          splashColor: colorPrimary,
+          onTap: () {},
+          child: getButtons(optionList[index].answer.toString(),
+              optionList[index].isSelected),
+        );
+      },
+    );
+  }
+
+  Widget setQuestionView() {
+    if (isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return optionList.isNotEmpty
+          ? Container(
+              margin: EdgeInsets.only(
+                top: paddingSmall * 2,
+                left: commonPadding * 1.5,
+                right: commonPadding * 1.5,
+              ),
+              padding: EdgeInsets.only(
+                  left: paddingSmall * 2,
+                  right: paddingSmall * 2,
+                  top: paddingSmall * 2,
+                  bottom: paddingSmall * 2),
+              decoration: BoxDecoration(
+                color: colorBackground,
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "${questionTitle}",
+                            style: themeFontSemiBold(fontSize: textSmall + 2),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Divider(
+                    thickness: 0.7,
+                    color: dividerColor,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Column(
+                            children: buttons(),
+                          ),
+                        ]),
+                  )
+                ],
+              ),
+            )
+          : Container();
+    }
   }
 
   Widget setView() {
@@ -259,10 +261,11 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
             child: Column(
               children: [
                 profileView(),
+                setQuestionView(),
+                topView(),
                 stepCard(),
                 mediaCard(),
-                topView(),
-                toptext(),
+                topText(),
                 montageView(),
                 Utilities.commonSizedBox(paddingMedium * 2),
                 habitView(),
@@ -532,9 +535,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                       borderRadius: BorderRadius.circular(16),
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  AudioList(favoritesList[index]['_id'])));
+                          Navigator.of(context).push(CustomPageRoute(
+                              child: AudioList(favoritesList[index]['_id'])));
                         },
                         child: Stack(
                           alignment: Alignment.bottomLeft,
@@ -548,22 +550,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                               width: MediaQuery.of(context).size.width,
                               // color: Color.fromRGBO(255, 255, 255, 0.6),
                               colorBlendMode: BlendMode.modulate,
-                            )
-                            /* CachedNetworkImage(
-                                imageUrl: RequestCode.apiEndPoint +
-                                    favoritesList[index]['image'],
-                                fit: BoxFit.cover,
-                                height: MediaQuery.of(context).size.height,
-                                width: MediaQuery.of(context).size.width,
-                                // color: Color.fromRGBO(255, 255, 255, 0.6),
-                                colorBlendMode: BlendMode.modulate,
-                                placeholder: (context, url) => Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                // Image.network(
-                                //     ,fit: BoxFit.cover,),
-                                )*/
-                            ,
+                            ),
                             Container(
                               width: MediaQuery.of(context).size.width,
                               padding: EdgeInsets.all(paddingSmall + 4),
@@ -632,11 +619,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
             ),
             child: Row(
               children: [
-                InkWell(
-                  onTap: () => getDialog(),
-                  child: CommonProfile(
-                    userIcon: getImage(),
-                  ),
+                CommonProfile(
+                  userIcon: getImage(),
                 ),
                 SizedBox(
                   width: paddingSmall * 2,
@@ -702,47 +686,6 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
           SizedBox(
             height: paddingSmall * 2,
           ),
-          // SliderTheme(
-          //   data: SliderTheme.of(context).copyWith(
-          //     inactiveTrackColor: Color(0xffF1F1F1),
-          //     thumbColor: colorTheme,
-          //     trackShape: GradientRectSliderTrackShape(),
-          //   ),
-          //   child: Slider(
-          //     value: value,
-          //     max: 100,
-          //     min: 0,
-          //     onChanged: (val) {
-          //       setState(() {
-          //         value = val;
-          //       });
-          //     },
-          //   ),
-          // ),
-          // Padding(
-          //   padding: EdgeInsets.only(
-          //       left: commonPadding * 1.5, right: commonPadding * 1.5),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       Text(
-          //         "Bad",
-          //         style: themeFontRegular(),
-          //       ),
-          //       Text(
-          //         "Better",
-          //         style: themeFontRegular(),
-          //       ),
-          //       Text(
-          //         "Good",
-          //         style: themeFontRegular(),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-          // SizedBox(
-          //   height: paddingSmall * 2,
-          // ),
         ],
       ),
     );
@@ -816,24 +759,23 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
             children: [
               progressBar(
                 AppStrings.chillCap,
-                '$chillCount pt',
+                '$chillCount',
                 [
-                  Color(0xff3C0662),
-                  Color(0xffBA00FF),
+                  Color(0xff8B00FF),
+                  Color(0xff662D91),
                 ],
               ),
               progressBar(
                 AppStrings.connectCap,
-                '$connectCount pt',
+                '$connectCount',
                 [
-                  HexColor("#400B65"),
-                  HexColor("#A35CC4"),
-                  HexColor("#F8E5FF"),
+                  Color(0xff8B00FF),
+                  Color(0xff662D91),
                 ],
               ),
               progressBar(
                 AppStrings.chargeCap,
-                '$chargeCount pt',
+                '$chargeCount',
                 [
                   Color(0xff8B00FF),
                   Color(0xff662D91),
@@ -891,7 +833,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
               future: posts,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return generateList(snapshot.data);
+                  return generateList(snapshot.data.take(3).toList());
                 }
                 if (snapshot.data == null || snapshot.data.length == 0) {
                   return Center(
@@ -907,7 +849,18 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
           ),
           SizedBox(
             height: paddingSmall * 2,
-          )
+          ),
+          CommonButton(
+            buttonText: "SHOW ALL",
+            onPressed: () {
+              Navigator.pushNamed(context, RouteMediaView);
+            },
+            width: MediaQuery.of(context).size.width,
+            backgroundColor: Colors.transparent,
+            isRightArrow: false,
+            borderColor: colorTheme,
+            buttonFontStyle: themeFontMedium(),
+          ),
         ],
       ),
     );
@@ -1036,7 +989,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     );
   }
 
-  toptext() {
+  topText() {
     return Padding(
       padding: EdgeInsets.only(right: commonPadding * 1.5, top: paddingSmall),
       child: Row(
@@ -1056,6 +1009,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   }
 
   progressBar(String headerText, String centerText, List<Color> colors) {
+    double percent = (double.tryParse(centerText)/500);
     return Column(
       children: [
         Text(
@@ -1067,7 +1021,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
           radius: 84.0,
           lineWidth: 6.0,
           animation: true,
-          percent: 0.7,
+          percent: percent,
           center: CircleAvatar(
             radius: 35.8,
             backgroundColor: Color(0xffF1F1F1),
@@ -1076,7 +1030,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    centerText,
+                    "${centerText}pt",
                     style: themeFontRegular(
                       fontSize: textSmall + 2,
                     ),
@@ -1149,11 +1103,172 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
       apiPresenter.habitListByUserId(context);
     } else {
       isLoading = false;
-
       habitList.addAll(object);
       debugPrint(habitList.toString());
-
       setState(() {});
+    }
+  }
+
+  Future<String> getTotalPageView(String requestCode) async {
+    var userID = await SessionManager.getStringData('userId');
+    var url = WebUrl.QUESTION_URL + requestCode + userID;
+    setState(() {
+      isLoading = true;
+    });
+    debugPrint("getTotalPageView URL => $url");
+    Response response =
+        await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
+    if (response.statusCode == 200) {
+      debugPrint("getTotalPageView response => ${response.body}");
+      dynamic object = await jsonDecode(response.body);
+      if (object != null) {
+        setState(() {
+          chillCount = object['data']['Chill'];
+          connectCount = object['data']['CONNECT'];
+          chargeCount = object['data']['CHARGE'];
+          isLoading = false;
+        });
+
+      }
+    }
+  }
+
+  Future<QuestionsModel> getDayQuestion(String requestCode) async {
+    setState(() {
+      optionList.clear();
+      isLoading = true;
+    });
+    DateTime currentDate = new DateTime.now();
+    DateTime date =
+        new DateTime(currentDate.year, currentDate.month, currentDate.day);
+    String currentDateLoad = date.toString();
+    DateLoad = await SessionManager.getDateTime(DATE_TIME);
+    if (currentDateLoad == DateLoad) {
+      questionTitle = await SessionManager.getStringData(QUESTION_TITLE);
+      setSelectedOptionList(requestCode);
+    } else {
+      setOptionList(requestCode);
+    }
+  }
+
+  setSelectedOptionList(String requestCode) async {
+    var url = WebUrl.QUESTION_URL + requestCode;
+    var id = await SessionManager.getStringData('userId');
+    String selectedOptionValue =
+        await SessionManager.getStringData(QUESTION_OPTION);
+    debugPrint(url);
+    Response response =
+        await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
+    if (response.statusCode == 200) {
+      print("response => ${response.body}");
+      dynamic object = jsonDecode(response.body);
+      List<QuestionsModel> list = [];
+      List<QuestionsOption> options = [];
+      List<QuestionsOption> newOptionList = [];
+      options.add(QuestionsOption(
+        answer: object['option']["option1"].toString(),
+        isSelected: false,
+      ));
+      options.add(QuestionsOption(
+        answer: object['option']["option2"].toString(),
+        isSelected: false,
+      ));
+      options.add(QuestionsOption(
+        answer: object['option']["option3"].toString(),
+        isSelected: false,
+      ));
+      options.add(QuestionsOption(
+        answer: object['option']["option4"].toString(),
+        isSelected: false,
+      ));
+      list.add(QuestionsModel(
+          id: object["_id"].toString(),
+          days: object["days"].toString(),
+          option: options,
+          title: object["title"].toString()));
+      if (list.isNotEmpty) {
+        currentPos = 0;
+        questionList = list;
+        userId = id;
+        questionId = questionList[0].id;
+        questionTitle = questionList[0].title;
+        days = questionList[0].days;
+      }
+      if (options.isNotEmpty) {
+        for (int i = 0; i < options.length; i++) {
+          if (selectedOptionValue == options[i].answer) {
+            newOptionList.add(QuestionsOption(
+              answer: options[i].answer,
+              isSelected: true,
+            ));
+          } else {
+            newOptionList.add(QuestionsOption(
+              answer: options[i].answer,
+              isSelected: false,
+            ));
+          }
+        }
+      }
+      setState(() {
+        optionList = newOptionList;
+        isLoading = false;
+      });
+    } else {
+      throw "Unable to retrieve posts.";
+    }
+  }
+
+  setOptionList(String requestCode) async {
+    setState(() {
+      optionList.clear();
+      isLoading = true;
+    });
+    var url = WebUrl.QUESTION_URL + requestCode;
+    var id = await SessionManager.getStringData('userId');
+    debugPrint(url);
+    Response response =
+        await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
+    if (response.statusCode == 200) {
+      print("response => ${response.body}");
+      dynamic object = jsonDecode(response.body);
+      List<QuestionsModel> list = [];
+      List<QuestionsOption> options = [];
+      options.add(QuestionsOption(
+        answer: object['option']["option1"].toString(),
+        isSelected: false,
+      ));
+      options.add(QuestionsOption(
+        answer: object['option']["option2"].toString(),
+        isSelected: false,
+      ));
+      options.add(QuestionsOption(
+        answer: object['option']["option3"].toString(),
+        isSelected: false,
+      ));
+      options.add(QuestionsOption(
+        answer: object['option']["option4"].toString(),
+        isSelected: false,
+      ));
+      list.add(QuestionsModel(
+          id: object["_id"].toString(),
+          days: object["days"].toString(),
+          option: options,
+          title: object["title"].toString()));
+      if (list.isNotEmpty) {
+        isLoading = false;
+        currentPos = 0;
+        questionList = list;
+        optionList = options;
+        userId = id;
+        questionId = questionList[0].id;
+        questionTitle = questionList[0].title;
+        days = questionList[0].days;
+      }
+      setState(() {
+        isLoading = false;
+      });
+    } else {
+      throw "Unable to retrieve posts.";
     }
   }
 
@@ -1168,8 +1283,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
               left: 0.0, top: 5.0, right: 0.0, bottom: 5.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => AudioList(posts[index].id)));
+              Navigator.of(context)
+                  .push(CustomPageRoute(child: AudioList(posts[index].id)));
             },
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
@@ -1184,21 +1299,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                     width: MediaQuery.of(context).size.width,
                     // color: Color.fromRGBO(255, 255, 255, 0.6),
                     colorBlendMode: BlendMode.modulate,
-                  )
-                  /*CachedNetworkImage(
-                      imageUrl: RequestCode.apiEndPoint + posts[index].image,
-                      fit: BoxFit.cover,
-                      height: MediaQuery.of(context).size.height / 4,
-                      width: MediaQuery.of(context).size.width,
-                      // color: Color.fromRGBO(255, 255, 255, 0.6),
-                      colorBlendMode: BlendMode.modulate,
-                      placeholder: (context, url) => Center(
-                            child: CircularProgressIndicator(),
-                          )
-                      // Image.network(
-                      //     ,fit: BoxFit.cover,),
-                      )*/
-                  ,
+                  ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.all(paddingSmall + 4),
@@ -1240,31 +1341,102 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     );
   }
 
-  Future<void> setFeelResponse(String feelValue, String s) async {
+  Future<void> setFeelResponse(String optionValue, String msg) async {
+    List<QuestionsOption> newOptionList = [];
+    DateLoad = await SessionManager.getDateTime(DATE_TIME);
+    if (DateLoad == "") {
+      DateTime date = new DateTime(now.year, now.month, now.day);
+      SessionManager.setDateTime(DATE_TIME, date.toString());
+    } else {
+      DateLoad = await SessionManager.getDateTime(DATE_TIME);
+      print("DateLoad=> $DateLoad");
+    }
+    if (optionList != null) {
+      for (int i = 0; i < optionList.length; i++) {
+        if (optionValue == optionList[i].answer) {
+          newOptionList.add(QuestionsOption(
+            answer: optionList[i].answer,
+            isSelected: true,
+          ));
+        } else {
+          newOptionList.add(QuestionsOption(
+            answer: optionList[i].answer,
+            isSelected: false,
+          ));
+        }
+      }
+    }
+    optionList.clear();
     setState(() {
-      Navigator.pop(context);
-      snackBar = SnackBar(
-        content: Text(s),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      optionList.addAll(newOptionList);
+      print("newOptionList Fill after=> $optionList");
+      postOption(RequestCode.CREATE_QUESTION_OPTION, optionValue, msg);
     });
   }
 
-  Future<void> getDayStreakCount() async {
-    final prefs = await SharedPreferences.getInstance();
+  Future<dynamic> postOption(
+      String requestCode, String option, String msg) async {
+    bool isInternet = await Utilities.isConnectedNetwork();
+    if (!isInternet) {
+      snackBar = SnackBar(
+        content: Text("Check your internet connection and try again"),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      try {
+        Map<String, dynamic> requestParam = {
+          "question_id": questionId,
+          "question_title": questionTitle,
+          "days": days,
+          "option": option,
+          "user_id": userId
+        };
+        String url = WebUrl.QUESTION_URL + requestCode;
+        print(url);
+        print("requestParam => $requestParam");
+        Response response = await http
+            .post(Uri.parse(url),
+                headers: {
+                  "Content-Type": "application/json",
+                  HttpHeaders.authorizationHeader: 'Bearer ' +
+                      await SessionManager.getStringData(ACCESS_TOKEN),
+                },
+                body: jsonEncode(requestParam))
+            .timeout(Duration(seconds: 30));
 
-    chillCount = await prefs.get('CHILL') ?? 0;
-    connectCount = await prefs.get('CONNECT') ?? 0;
-    chargeCount = await prefs.get('CHARGE') ?? 0;
-
-    print("chillCount ===> $chillCount");
-    print("connectCount ===> $connectCount");
-    print("chargeCount ===> $chargeCount");
-
-    prefs.setInt('CHILL', chillCount);
-    prefs.setInt('CONNECT', connectCount);
-    prefs.setInt('CHARGE', chargeCount);
+        final responseBody = jsonDecode(response.body);
+        print(responseBody);
+        if (response.statusCode == 200) {
+          print("DAATATTATA");
+          print(responseBody);
+          snackBar = SnackBar(
+            content: Text(msg),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          print("da");
+        }
+      } catch (e) {
+        print(e);
+      }
+    }
   }
+}
+
+class QuestionsModel {
+  String id;
+  String title;
+  String days;
+  List<QuestionsOption> option;
+
+  QuestionsModel({this.id, this.title, this.days, this.option});
+}
+
+class QuestionsOption {
+  String answer;
+  bool isSelected;
+
+  QuestionsOption({this.answer, this.isSelected});
 }
 
 class GradientRectSliderTrackShape extends SliderTrackShape

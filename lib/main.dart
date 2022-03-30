@@ -6,7 +6,6 @@ import 'package:montage/app.dart';
 import 'package:montage/constants/endpoints.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/customs/global_var.dart' as globals;
-import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/session_manager.dart';
 import 'package:montage/views/auth/guidline_view.dart';
 

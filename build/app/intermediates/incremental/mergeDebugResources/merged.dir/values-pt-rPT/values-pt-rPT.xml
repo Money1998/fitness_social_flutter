@@ -27,7 +27,7 @@
     <string msgid="2650565705514630347" name="abc_shareactionprovider_share_with">"Partilhar com"</string>
     <string msgid="9009661856846212431" name="abc_shareactionprovider_share_with_application">"Partilhar com a aplicação <ns1:g id="APPLICATION_NAME">%s</ns1:g>"</string>
     <string msgid="6389460216547290468" name="abc_toolbar_collapse_description">"Reduzir"</string>
-    <string gender="unknown" name="com_facebook_device_auth_instructions">Visita &lt;b>facebook.com/device&lt;/b> e insere o código apresentado abaixo.</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">Acede a &lt;b>facebook.com/device&lt;/b> e insere o código mostrado acima.</string>
     <string gender="unknown" name="com_facebook_image_download_unknown_error">Ocorreu um erro inesperado ao descarregar uma imagem.</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_message">O início de sessão WebView requer a permissão INTERNET</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_title">Erro AndroidManifest</string>
@@ -38,8 +38,8 @@
     <string gender="unknown" name="com_facebook_loginview_log_in_button">Iniciar sessão</string>
     <string gender="unknown" name="com_facebook_loginview_log_in_button_continue">Continuar com o Facebook</string>
     <string gender="unknown" name="com_facebook_loginview_log_in_button_long">Iniciar sessão com o Facebook</string>
-    <string gender="unknown" name="com_facebook_loginview_log_out_action">Terminar a sessão</string>
-    <string gender="unknown" name="com_facebook_loginview_log_out_button">Terminar a sessão</string>
+    <string gender="unknown" name="com_facebook_loginview_log_out_action">Terminar sessão</string>
+    <string gender="unknown" name="com_facebook_loginview_log_out_button">Terminar sessão</string>
     <string gender="unknown" name="com_facebook_loginview_logged_in_as">Com sessão iniciada como %1$s</string>
     <string gender="unknown" name="com_facebook_loginview_logged_in_using_facebook">Com sessão iniciada com o Facebook</string>
     <string gender="unknown" name="com_facebook_send_button_text">Enviar</string>
@@ -73,11 +73,11 @@
     <string msgid="2615365786337886368" name="fallback_menu_item_copy_link">"Copiar link"</string>
     <string msgid="8984733760067120953" name="fallback_menu_item_open_in_browser">"Abrir no navegador"</string>
     <string msgid="271185644269364308" name="fallback_menu_item_share_link">"Partilhar link"</string>
-    <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"Diversas"</string>
-    <string msgid="4221330012095125431" name="pause_button_content_description">"Colocar em pausa"</string>
+    <string name="fcm_fallback_notification_channel_label">Diversas</string>
+    <string msgid="4221330012095125431" name="pause_button_content_description">"Pausar"</string>
     <string msgid="6034272287948142298" name="play_button_content_description">"Reproduzir"</string>
     <string msgid="730395136688082741" name="search_menu_title">"Pesquisar"</string>
     <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"Ir para o item seguinte"</string>
     <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"Ir para o item anterior"</string>
-    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

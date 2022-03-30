@@ -27,7 +27,7 @@
     <string msgid="2650565705514630347" name="abc_shareactionprovider_share_with">"இதில் பகிர்"</string>
     <string msgid="9009661856846212431" name="abc_shareactionprovider_share_with_application">"<ns1:g id="APPLICATION_NAME">%s</ns1:g> மூலம் பகிர்"</string>
     <string msgid="6389460216547290468" name="abc_toolbar_collapse_description">"சுருக்கும்"</string>
-    <string gender="unknown" name="com_facebook_device_auth_instructions">&lt;b>facebook.com/device&lt;/b> ஐப் பார்வையிட்டு, மேலே காட்டப்பட்ட குறியீட்டை உள்ளிடவும்.</string>
+    <string gender="unknown" name="com_facebook_device_auth_instructions">&lt;b>facebook.com/device&lt;/b>என்ற இணைப்பிற்குச் சென்று, மேலே காட்டப்படும் குறியீட்டை உள்ளிடவும்.</string>
     <string gender="unknown" name="com_facebook_image_download_unknown_error">படத்தைப் பதிவிறக்கும்போது எதிர்பாராத பிழை ஏற்பட்டது.</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_message">WebView உள்நுழைவுக்கு இணைய அனுமதித் தேவை</string>
     <string gender="unknown" name="com_facebook_internet_permission_error_title">AndroidManifest பிழை</string>
@@ -58,7 +58,7 @@
     <string msgid="7442193194585196676" name="common_google_play_services_install_title">"Google Play சேவைகளைப் பெறவும்"</string>
     <string msgid="4293541511340436975" name="common_google_play_services_notification_channel_name">"கிடைக்கும் Google Play சேவைகள்"</string>
     <string msgid="180394615667698242" name="common_google_play_services_notification_ticker">"Google Play சேவைகள் பிழை"</string>
-    <string msgid="2518680582564677258" name="common_google_play_services_unknown_issue">"Google Play சேவைகளில் சிக்கல் ஏற்பட்டதால், <ns1:g id="APP_NAME">%1$s</ns1:g> பயன்பாட்டை அணுக முடியவில்லை. மீண்டும் முயலவும்."</string>
+    <string msgid="2518680582564677258" name="common_google_play_services_unknown_issue">"Google Play சேவைகளில் சிக்கல் ஏற்பட்டதால், <ns1:g id="APP_NAME">%1$s</ns1:g> ஆப்ஸை அணுக முடியவில்லை. மீண்டும் முயலவும்."</string>
     <string msgid="5501187292256987189" name="common_google_play_services_unsupported_text">"Google Play சேவைகள் இருந்தால் மட்டுமே <ns1:g id="APP_NAME">%1$s</ns1:g> ஆப்ஸ் இயங்கும். ஆனால், உங்கள் சாதனத்தில் அவை ஆதரிக்கப்படவில்லை."</string>
     <string msgid="8172070149091615356" name="common_google_play_services_update_button">"புதுப்பி"</string>
     <string msgid="7773943415006962566" name="common_google_play_services_update_text">"Google Play சேவைகளை இயக்கினால் மட்டுமே, <ns1:g id="APP_NAME">%1$s</ns1:g> செயல்படும்."</string>
@@ -73,11 +73,11 @@
     <string msgid="2615365786337886368" name="fallback_menu_item_copy_link">"இணைப்பை நகலெடு"</string>
     <string msgid="8984733760067120953" name="fallback_menu_item_open_in_browser">"உலாவியில் திற"</string>
     <string msgid="271185644269364308" name="fallback_menu_item_share_link">"இணைப்பைப் பகிர்"</string>
-    <string msgid="4133737464567140336" name="fcm_fallback_notification_channel_label">"மற்றவை"</string>
+    <string name="fcm_fallback_notification_channel_label">மற்றவை</string>
     <string msgid="4221330012095125431" name="pause_button_content_description">"இடைநிறுத்தும் பட்டன்"</string>
     <string msgid="6034272287948142298" name="play_button_content_description">"இயக்கும் பட்டன்"</string>
     <string msgid="730395136688082741" name="search_menu_title">"தேடல்"</string>
     <string msgid="17824442457643717" name="skip_to_next_item_button_content_description">"அடுத்ததற்குச் செல்லும் பட்டன்"</string>
     <string msgid="7233771088610629683" name="skip_to_previous_item_button_content_description">"முந்தையதற்குச் செல்லும் பட்டன்"</string>
-    <string msgid="8106346172024741305" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
 </resources>

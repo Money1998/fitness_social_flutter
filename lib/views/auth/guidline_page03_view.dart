@@ -10,6 +10,7 @@ import 'package:montage/api/RequestCode.dart';
 import 'package:montage/api/WebFields.dart';
 import 'package:montage/constants/app_strings.dart';
 import 'package:montage/constants/assets_images.dart';
+import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/constants/endpoints.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/customs/responsive_widget.dart';
@@ -55,6 +56,7 @@ class _GuidlineView03State extends State<GuidlineView03>
 
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
+
   // final facebookLogin = FacebookLogin();
 
   onClickFacebookLogin() async {
@@ -90,9 +92,9 @@ class _GuidlineView03State extends State<GuidlineView03>
 
     FacebookAuth.instance
         .login(loginBehavior: LoginBehavior.dialogOnly)
-        .then((token) {
+        .then((accessToken) {
       final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(token.accessToken.token);
+          FacebookAuthProvider.credential(accessToken.accessToken.token);
       FirebaseAuth.instance
           .signInWithCredential(facebookAuthCredential)
           .then((userCredential) {
@@ -153,6 +155,7 @@ class _GuidlineView03State extends State<GuidlineView03>
     return ResponsiveWidget(
       scaffoldKey: scaffoldKey,
       builder: (context, constraints) {
+        var width = MediaQuery.of(context).size.width;
         return Container(
           decoration: BoxDecoration(gradient: lightgradientBG),
           child: Column(
@@ -175,7 +178,7 @@ class _GuidlineView03State extends State<GuidlineView03>
                       ),
                       CommonButton(
                         width: MediaQuery.of(context).size.width / 1.4,
-                        buttonText: AppStrings.signupWithEmail,
+                        buttonText: AppStrings.signupWithEmail ,buttonFontStyle: primaryMedium(fontSize:MediaQuery.of(context).size.width < 385? 09:textSmall),
                         onPressed: () {
                           Navigator.pushNamed(context, RouteSignupView);
                         },
@@ -189,12 +192,12 @@ class _GuidlineView03State extends State<GuidlineView03>
                             Utilities.loading(context);
                             onClickFacebookLogin();
                           } else {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => GuidlineView()));
+                            Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
                           }
                         },
                         width: MediaQuery.of(context).size.width / 1.4,
                         buttonText: AppStrings.continueWithFB,
+                          buttonFontStyle: primaryMedium(fontSize:MediaQuery.of(context).size.width < 385? 09:textSmall)
                       ),
                       commonSizedBox(paddingMedium * 2),
                       CommonButton(
@@ -205,20 +208,21 @@ class _GuidlineView03State extends State<GuidlineView03>
                             Utilities.loading(context);
                             onClickAppleLogin();
                           } else {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => GuidlineView()));
+                            Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
                           }
                         },
                         width: MediaQuery.of(context).size.width / 1.4,
                         buttonText: AppStrings.continueWithApple,
+                          buttonFontStyle: primaryMedium(fontSize:MediaQuery.of(context).size.width < 385? 09:textSmall)
                       ),
-                      commonSizedBox(paddingMedium * 2),
+                      commonSizedBox(paddingMedium * 4),
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, RouteLoginView);
                         },
                         child: richTxt(),
                       ),
+                      commonSizedBox(paddingSmall + 4),
                       commonSizedBox(paddingSmall + 4),
                       termText(),
                     ],
@@ -239,9 +243,11 @@ class _GuidlineView03State extends State<GuidlineView03>
       Text(
         AppStrings.termsText,
         style: TextStyle(
-          color: lightFonts,
+          color: Colors.blue[200],
+          decorationColor:Colors.blue[200],
+          decoration: TextDecoration.underline,
           fontFamily: FontNamelight,
-          fontSize: textSmall,
+          fontSize:MediaQuery.of(context).size.width < 385? 09: textSmall,
         ),
       ),
     );
@@ -269,7 +275,7 @@ class _GuidlineView03State extends State<GuidlineView03>
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: commonPadding * 3),
       child: Text(
-        AppStrings.guidline03Titl,
+        "${globals.userName},your Montage journey is about to start",
         style: primaryLight(
           fontSize: textMedium,
         ),

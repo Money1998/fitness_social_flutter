@@ -62,6 +62,38 @@ class RestClient {
     }
   }
 
+  Future<dynamic> postCount(Map requestParam, String requestCode) async {
+    print(requestParam);
+    bool isInternet = await Utilities.isConnectedNetwork();
+    if (!isInternet) {
+      _apiCallBacks.onConnectionError(
+          "Check your internet connection and try again", requestCode);
+    } else {
+      try {
+        String url = WebUrl.QUESTION_URL + requestCode;
+        print(url);
+        final response = await http
+            .post(Uri.parse(url),
+            headers: {
+              "Content-Type": "application/json",
+              HttpHeaders.authorizationHeader: 'Bearer ' +
+                  await SessionManager.getStringData(ACCESS_TOKEN),
+            },
+            body: jsonEncode(requestParam))
+            .timeout(Duration(seconds: 30));
+
+        final responseBody = jsonDecode(response.body);
+        print(responseBody);
+        if (response.statusCode == 200) {
+          print("getCount Data => $responseBody");
+        }
+      } catch (e) {
+        print(e);
+        _apiCallBacks.onError("somthing went wrong try again...", requestCode);
+      }
+    }
+  }
+
   Future<dynamic> put(Map requestParam, String requestCode) async {
 
     bool isInternet = await Utilities.isConnectedNetwork();
@@ -230,13 +262,11 @@ class RestClient {
           "Check your internet connection and try again", requestCode);
     } else {
       try {
-        String url = WebUrl.MAIN_URL + requestCode;
+        var url = WebUrl.MAIN_URL + requestCode;
         debugPrint(url);
         //String url = 'http://192.168.0.103:3000/' + requestCode;
-        final response = await http.get(Uri.parse(url), headers: {
-          HttpHeaders.contentTypeHeader: 'application/json',
-        }).timeout(Duration(seconds: 10));
-        final responseBody = json.decode(response.body);
+        var response = await http.get(Uri.parse(url)).timeout(Duration(seconds: 10));
+        var responseBody = json.decode(response.body);
         if (response.statusCode != 200 && responseBody == null) {
           _apiCallBacks.onError(
               "An error occured Status Code : $response.statusCode",
@@ -257,6 +287,8 @@ class RestClient {
       }
     }
   }
+
+
 
   Future<dynamic> delete(String requestCode) async {
     bool isInternet = await Utilities.isConnectedNetwork();

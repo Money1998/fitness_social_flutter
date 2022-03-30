@@ -13,6 +13,10 @@ class RequestCode {
   static const String FAVORITES = 'favorite';
   static const String HTML_PAGE = 'html-page/';
   static const String SIGN_UP_QUIZ = 'quiz';
+  static const String GET_QUESTION_BY_DAY = 'getQuestionByDay';
+  static const String GET_TOTAL_PAGE_VIEW = 'getTotalPageView/';
+  static const String CREATE_QUESTION_OPTION = 'createQuestionOption';
+  static const String CLICK_PAGE_COUNT = 'clickPageTypeCount';
   static const String FEEDBACK = 'feedback';
   static const String CHANNEL_LIKE = 'channel-post/channel-post-like';
   static const String COMMENT_LISTING =

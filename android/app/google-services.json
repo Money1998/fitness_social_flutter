@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:533991215882:android:cbce64e39e0f4c6308a0f3",
         "android_client_info": {
-          "package_name": "com.montage.io"
+          "package_name": "com.example.montagedemo"
         }
       },
       "oauth_client": [

@@ -2,7 +2,7 @@ class AppStrings {
 
 
    static String username = "USERNAME";
-   static String poweredBy = "Powered by lorem ipsum dolor";
+   static String poweredBy = "Powered by Montage Fit";
    static String weAlmostthere = "Okay David, we are almost there.";
    static String chill = "Chill";
    static String betterSleep = "Better Sleep | Reduce Anxieties | Relieve Stress";
@@ -43,7 +43,7 @@ class AppStrings {
    static String chargeCap = "CHARGE";
    static String showAll = "Show All";
    static String settings = "Settings";
-   static String favorites = "Favorites";
+   static String montages = "Montages";
    static String myMontage = "My Montage";
    static String feedback = "FeedBack";
    static String totalStep = "Total steps today";

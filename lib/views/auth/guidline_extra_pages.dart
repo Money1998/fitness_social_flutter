@@ -59,6 +59,16 @@ class _GuidLineExtraPagesState extends State<GuidLineExtraPages>
   Widget build(BuildContext context) {
     return ResponsiveWidget(
       scaffoldKey: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor:Color.fromRGBO(244, 221, 254, 0.7),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, size: 30, color: colorTheme),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        elevation: 0,
+      ),
       builder: (context, constraints) {
         return Container(
           decoration: BoxDecoration(gradient: lightgradientBG),
@@ -78,7 +88,6 @@ class _GuidLineExtraPagesState extends State<GuidLineExtraPages>
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          commonSizedBox(paddingLarge * 4),
                           // titleTxt(),
                           commonSizedBox(paddingLarge * 2),
                           subTitleText(),

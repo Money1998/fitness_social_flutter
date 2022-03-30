@@ -19,6 +19,7 @@ import 'package:montage/views/home/tab_view.dart';
 import 'package:montage/views/myprofile/edit_goal.dart';
 import 'package:montage/views/myprofile/favourite.dart';
 import 'package:montage/views/myprofile/feedback.dart';
+import 'package:montage/views/myprofile/media_view.dart';
 import 'package:montage/views/myprofile/profile_view.dart';
 import 'package:montage/views/myprofile/settings.dart';
 import 'package:montage/views/no_internet/no_internet_view.dart';
@@ -39,13 +40,14 @@ const String RouteTabVIew = 'routeTabView';
 const String RouteProfileView = 'routeProfileView';
 const String RouteSettingView = 'routeSettingView';
 const String RouteFavoriteView = 'routeFavoriteView';
+const String RouteMediaView = 'routeMediaView';
 const String RouteHabitsView = 'routeHabitsView';
 const String RouteEditGoalView = 'routeEditGoal';
 const String RouteAudioListView = 'routeAudioList';
 const String RouteEditHabitView = 'routeEditHabitView';
 const String RouteChatView = 'routeChatView';
-const String RouteAudioplayer = 'routeAudioplayer';
-const String RouteVideoplayer = 'routeVideoplayer';
+const String RouteAudioPlayer = 'routeAudioPlayer';
+const String RouteVideoPlayer = 'routeVideoPlayer';
 const String FeedBack = 'feedback';
 
 // ignore: missing_return
@@ -82,6 +84,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => SettingView());
     case RouteFavoriteView:
       return MaterialPageRoute(builder: (context) => FavouriteView());
+    case RouteMediaView :
+      return MaterialPageRoute(builder: (context) => MediaView());
     case RouteHabitsView:
       return MaterialPageRoute(builder: (context) => HabitsView());
     case RouteEditGoalView:
@@ -92,10 +96,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => AddHabitView());
     case RouteChatView:
       return MaterialPageRoute(builder: (context) => ChatView());
-    case RouteAudioplayer:
+    case RouteAudioPlayer:
       return MaterialPageRoute(builder: (context) => AudioPlayerList(null));
 
-    case RouteVideoplayer:
+    case RouteVideoPlayer:
       return MaterialPageRoute(builder: (context) => VideoPlayerList(null));
 
     case FeedBack:
