@@ -42,6 +42,7 @@ class RestClient {
         print(responseBody);
         if (responseBody['statusCode'] == 200) {
             print("DAATATTATA");
+            print("responseBody => $responseBody['data']");
           print(responseBody);
           var returnObject = ResponseManager.parser(requestCode, responseBody);
           _apiCallBacks.onSuccess(

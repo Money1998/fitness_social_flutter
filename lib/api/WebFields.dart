@@ -30,4 +30,5 @@ class WebFields {
   static const String COMMENT = "comment";
   static const String DESC = "desc";
   static const String GOALS = "goals";
+  static const String USERTYPE = "userType";
 }

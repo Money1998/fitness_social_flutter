@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:montage/api/WebFields.dart';
 import 'package:montage/constants/app_strings.dart';
 import 'package:montage/constants/assets_images.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/customs/responsive_widget.dart';
 import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/dimens.dart';
+import 'package:montage/utils/session_manager.dart';
 import 'package:montage/utils/text_styles.dart';
 import 'package:montage/utils/utilites.dart';
 import 'package:montage/views/common/common_sqaure_btn.dart';
@@ -149,6 +151,8 @@ class _GuidlineView04State extends State<GuidlineView04> {
               Utilities.showError(scaffoldKey, 'Please select option',);
             }else{
               globals.userType = buttonData[selectedIndex].buttonText;
+              print("globals.userType => ${globals.userType}");
+              SessionManager.setStringData(WebFields.USERTYPE, globals.userType);
               Navigator.pushNamed(context, RouteGuildlinePage05);
             }
 

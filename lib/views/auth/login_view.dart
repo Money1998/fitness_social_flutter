@@ -1,10 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
@@ -44,8 +41,7 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> implements ApiCallBacks {
   ApiPresenter apiPresenter;
-
-  // final facebookLogin = FacebookLogin();
+  final fb = FacebookLogin();
 
   _LoginViewState() {
     apiPresenter = new ApiPresenter(this);
@@ -53,9 +49,9 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
 
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<TextFieldCustomState> emailState =
-  GlobalKey<TextFieldCustomState>();
+      GlobalKey<TextFieldCustomState>();
   final GlobalKey<TextFieldCustomState> passwordState =
-  GlobalKey<TextFieldCustomState>();
+      GlobalKey<TextFieldCustomState>();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -70,97 +66,45 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
 
   onClickFacebookLogin() async {
     print("Login View FB Login");
-
-    /*facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    if (await facebookLogin.isLoggedIn) {
-      facebookLogin.logOut();
-    }
-    final FacebookLoginResult result =
-        await facebookLogin.logIn(["email", "public_profile"]);
-    print(result);
-    switch (result.status) {
+    final res = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
+    switch (res.status) {
+      case FacebookLoginStatus.success:
+        final FacebookAccessToken accessToken = res.accessToken;
+        print('Access token: ${accessToken.token}');
+        final profile = await fb.getUserProfile();
+        print('Hello, ${profile.name}! You ID: ${profile.userId}');
+        final imageUrl = await fb.getProfileImageUrl(width: 100);
+        print('Your profile image: $imageUrl');
+        final email = await fb.getUserEmail();
+        if (email != null) print('And your email is $email');
+        apiPresenter.doSocialLogin('Facebook', profile.userId, profile.name,
+            email ?? "", imageUrl ?? "", context);
+        break;
+      case FacebookLoginStatus.cancel:
+        break;
       case FacebookLoginStatus.error:
+        print('Error while log in: ${res.error}');
         break;
-      case FacebookLoginStatus.cancelledByUser:
-        break;
-      case FacebookLoginStatus.loggedIn:
-        Utilities.loading(context);
-        var graphResponse = await http.get(
-            "https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture&access_token=${result.accessToken.token}");
-        var profile = json.decode(graphResponse.body);
-        print(profile['name'] + profile['id']);
-        print('Facebook Login');
-        var email = '';
-        var profileUrl = '';
-        try {
-          email = profile['email'];
-        } catch (error) {}
-        try {
-          profileUrl = profile['picture']['data']['url'];
-        } catch (error) {}
-        apiPresenter.doSocialLogin('Facebook', profile['id'], profile['name'],
-            email, profileUrl, context);
-    }*/
-
-
-    FacebookAuth.instance
-        .login(loginBehavior: LoginBehavior.dialogOnly)
-        .then((accessToken) {
-      final OAuthCredential facebookAuthCredential =
-      FacebookAuthProvider.credential(accessToken.accessToken.token);
-      FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential)
-          .then((userCredential) {
-        print("Login Details : ${userCredential.user.uid}");
-        print("Login Details : ${userCredential.user.displayName}");
-        print("Login Details : ${userCredential.user.email}");
-        print("Login Details : ${userCredential.user.photoURL}");
-
-
-        apiPresenter.doSocialLogin(
-            'Facebook',
-            userCredential.user.uid,
-            userCredential.user.displayName,
-            userCredential.user.email ?? "",
-            userCredential.user.photoURL ?? "",
-            context);
-      });
-    }).onError((error, stackTrace) {
-      print("error + ${error.message}");
-      Utilities.loading(context, status: false);
-    });
+    }
+    Utilities.loading(context, status: false);
   }
 
-  // final GoogleSignIn googleSignIn = new GoogleSignIn(
-  //   scopes: <String>[
-  //     'email',
-  //     'name',
-  //   ],
-  // );
-  onClickGoogleLogin() async {
+  Future<void> onClickGoogleLogin() async {
     try {
-      final GoogleSignInAccount googleAccountUser =
-      await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication googleAuth =
-      await googleAccountUser.authentication;
-      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-      UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
-      print("Login Details : ${userCredential.user.uid}");
-      print("Login Details : ${userCredential.user.displayName}");
-      print("Login Details : ${userCredential.user.email}");
-      print("Login Details : ${userCredential.user.photoURL}");
-      Utilities.loading(context);
-      apiPresenter.doSocialLogin(
-          'Google',
-          userCredential.user.uid,
-          userCredential.user.displayName,
-          userCredential.user.email,
-          userCredential.user.photoURL,
-          context);
+      final user = await GoogleSignInApi.login();
+      if (user != null) {
+        print("user details => $user");
+        Utilities.loading(context);
+        print("Login ID : ${user.id}");
+        print("Login DisplayName : ${user.displayName}");
+        print("Login Email : ${user.email}");
+        print("Login PhotoUrl : ${user.photoUrl}");
+        apiPresenter.doSocialLogin('Google', user.id, user.displayName,
+            user.email, user.photoUrl, context);
+      }
     } catch (error) {
       print("error + ${error.message}");
       Utilities.loading(context, status: false);
@@ -277,28 +221,28 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
                           isLoading == true
                               ? Utilities.loader()
                               : CommonButton(
-                            buttonText: AppStrings.enter,
-                            onPressed: () {
-                              var isValid = true;
-                              if (emailState.currentState
-                                  .checkValidation(false)) {
-                                isValid = false;
-                              }
-                              if (passwordState.currentState
-                                  .checkValidation(false)) {
-                                isValid = false;
-                              }
-                              if (isValid == true) {
-                                setState(() {
-                                  isLoading = true;
-                                });
-                                FocusScope.of(context)
-                                    .requestFocus(new FocusNode());
-                                apiPresenter.doLogin(emailController.text,
-                                    passwordController.text, context);
-                              }
-                            },
-                          ),
+                                  buttonText: AppStrings.enter,
+                                  onPressed: () {
+                                    var isValid = true;
+                                    if (emailState.currentState
+                                        .checkValidation(false)) {
+                                      isValid = false;
+                                    }
+                                    if (passwordState.currentState
+                                        .checkValidation(false)) {
+                                      isValid = false;
+                                    }
+                                    if (isValid == true) {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      FocusScope.of(context)
+                                          .requestFocus(new FocusNode());
+                                      apiPresenter.doLogin(emailController.text,
+                                          passwordController.text, context);
+                                    }
+                                  },
+                                ),
                           Utilities.commonSizedBox(paddingLarge * 2),
                           loginWithText(),
                           Utilities.commonSizedBox(paddingMedium * 2),
@@ -326,100 +270,112 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
       commonPadding * 3,
       Platform.isIOS
           ? Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          InkWell(
-            onTap: () async {
-              //Signup Blank issue
-              bool _result =
-              await SessionManager.getBooleanData(IS_ROUTINE);
-              if (_result) {
-                Utilities.loading(context);
-                onClickFacebookLogin();
-              } else {
-                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
-              }
-            },
-            child: socialIcon(
-              SvgImages.fb,
-            ),
-          ),
-          InkWell(
-            onTap: () async {
-              bool _result =
-              await SessionManager.getBooleanData(IS_ROUTINE);
-              if (_result) {
-                Utilities.loading(context);
-
-                onClickGoogleLogin();
-              } else {
-                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
-              }
-            },
-            child: socialIcon(
-              SvgImages.googleIc,
-            ),
-          ),
-          // socialIcon(
-          //   SvgImages.iosIc,
-          // ),
-          InkWell(
-            child: Image.asset(
-              AssetsImage.appleIc,
-              height: iconSize * 1.5,
-              width: iconSize * 1.5,
-            ),
-            onTap: () async {
-              bool _result =
-              await SessionManager.getBooleanData(IS_ROUTINE);
-              if (_result) {
-                Utilities.loading(context);
-                onClickAppleLogin();
-              } else {
-                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
-              }
-            },
-          )
-        ],
-      )
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Visibility(
+                  visible: true,
+                  child: InkWell(
+                    onTap: () async {
+                      //Signup Blank issue
+                      bool _result =
+                          await SessionManager.getBooleanData(IS_ROUTINE);
+                      if (_result) {
+                        Utilities.loading(context);
+                        await onClickFacebookLogin();
+                      } else {
+                        Navigator.of(context)
+                            .push(CustomPageRoute(child: GuidlineView()));
+                      }
+                    },
+                    child: socialIcon(
+                      SvgImages.fb,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    bool _result =
+                        await SessionManager.getBooleanData(IS_ROUTINE);
+                    if (_result) {
+                      Utilities.loading(context);
+                      await onClickGoogleLogin();
+                      Utilities.loading(context, status: false);
+                    } else {
+                      Navigator.of(context)
+                          .push(CustomPageRoute(child: GuidlineView()));
+                    }
+                  },
+                  child: socialIcon(
+                    SvgImages.googleIc,
+                  ),
+                ),
+                // socialIcon(
+                //   SvgImages.iosIc,
+                // ),
+                InkWell(
+                  child: Image.asset(
+                    AssetsImage.appleIc,
+                    height: iconSize * 1.5,
+                    width: iconSize * 1.5,
+                  ),
+                  onTap: () async {
+                    bool _result =
+                        await SessionManager.getBooleanData(IS_ROUTINE);
+                    if (_result) {
+                      Utilities.loading(context);
+                      onClickAppleLogin();
+                    } else {
+                      Navigator.of(context)
+                          .push(CustomPageRoute(child: GuidlineView()));
+                    }
+                  },
+                )
+              ],
+            )
           : Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          InkWell(
-            onTap: () async {
-              //Signup Blank issue
-              bool _result =
-              await SessionManager.getBooleanData(IS_ROUTINE);
-              if (_result) {
-                Utilities.loading(context);
-                onClickFacebookLogin();
-              } else {
-                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
-              }
-            },
-            child: socialIcon(
-              SvgImages.fb,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Visibility(
+                  visible: true,
+                  child: InkWell(
+                    onTap: () async {
+                      //Signup Blank issue
+                      bool _result =
+                          await SessionManager.getBooleanData(IS_ROUTINE);
+                      if (_result) {
+                        Utilities.loading(context);
+                        await onClickFacebookLogin();
+                      } else {
+                        Navigator.of(context)
+                            .push(CustomPageRoute(child: GuidlineView()));
+                      }
+                    },
+                    child: socialIcon(
+                      SvgImages.fb,
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    //Signup Blank issue
+                    bool _result =
+                        await SessionManager.getBooleanData(IS_ROUTINE);
+                    if (_result) {
+                      await onClickGoogleLogin();
+                      Utilities.loading(context, status: false);
+                    } else {
+                      Navigator.of(context)
+                          .push(CustomPageRoute(child: GuidlineView()));
+                    }
+                  },
+                  child: socialIcon(
+                    SvgImages.googleIc,
+                  ),
+                ),
+              ],
             ),
-          ),
-          InkWell(
-            onTap: () async {
-              //Signup Blank issue
-              bool _result =
-              await SessionManager.getBooleanData(IS_ROUTINE);
-              if (_result) {
-                onClickGoogleLogin();
-              } else {
-                Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
-              }
-            },
-            child: socialIcon(
-              SvgImages.googleIc,
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -472,8 +428,8 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
             if (_result) {
               Navigator.pushReplacementNamed(context, RouteSignupView);
             } else {
-              Navigator.of(context).push(
-                  CustomPageRoute(child: GuidlineView()));
+              Navigator.of(context)
+                  .push(CustomPageRoute(child: GuidlineView()));
             }
           },
           child: Text(
@@ -503,6 +459,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
   void onConnectionError(String error, String requestCode) {
     setState(() {
       isLoading = false;
+      Utilities.loading(context, status: false);
       Utilities.showError(scaffoldKey, error);
     });
   }
@@ -511,6 +468,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
   void onError(String errorMsg, String requestCode) {
     setState(() {
       isLoading = false;
+      Utilities.loading(context, status: false);
       Utilities.showError(scaffoldKey, errorMsg);
     });
   }
@@ -533,7 +491,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
           MaterialPageRoute(
             builder: (BuildContext context) => TabView(),
           ),
-              (route) => false,
+          (route) => false,
         );
       } else if (requestCode == RequestCode.SOCIAL_LOGIN) {
         print(object);
@@ -549,9 +507,15 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
           MaterialPageRoute(
             builder: (BuildContext context) => TabView(),
           ),
-              (route) => false,
+          (route) => false,
         );
       }
     });
   }
+}
+
+class GoogleSignInApi {
+  static final _googleSignIn = GoogleSignIn();
+
+  static Future<GoogleSignInAccount> login() => _googleSignIn.signIn();
 }

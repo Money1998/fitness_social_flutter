@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
@@ -29,6 +30,7 @@ class SettingView extends StatefulWidget {
 
 class _SettingViewState extends State<SettingView> implements ApiCallBacks {
   ApiPresenter apiPresenter;
+  final fb = FacebookLogin();
 
   _SettingViewState() {
     apiPresenter = new ApiPresenter(this);
@@ -250,6 +252,7 @@ class _SettingViewState extends State<SettingView> implements ApiCallBacks {
                                     actions: [
                                       FlatButton(
                                         onPressed: () {
+                                          fb.logOut();
                                           SessionManager.setBooleanData(
                                               IS_ROUTINE, false);
                                           SessionManager.removeString(IS_LOGIN);

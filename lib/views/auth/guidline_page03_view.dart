@@ -1,9 +1,7 @@
 import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
@@ -20,8 +18,8 @@ import 'package:montage/utils/dimens.dart';
 import 'package:montage/utils/session_manager.dart';
 import 'package:montage/utils/text_styles.dart';
 import 'package:montage/utils/utilites.dart';
+import 'package:montage/views/auth/login_view.dart';
 import 'package:montage/views/common/common_sqaure_btn.dart';
-import 'package:http/http.dart' as http;
 import 'package:montage/views/home/tab_view.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:montage/customs/global_var.dart' as globals;
@@ -36,6 +34,7 @@ class GuidlineView03 extends StatefulWidget {
 class _GuidlineView03State extends State<GuidlineView03>
     implements ApiCallBacks {
   ApiPresenter apiPresenter;
+  final fb = FacebookLogin();
 
   _GuidlineView03State() {
     apiPresenter = new ApiPresenter(this);
@@ -56,65 +55,32 @@ class _GuidlineView03State extends State<GuidlineView03>
 
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
-
-  // final facebookLogin = FacebookLogin();
-
   onClickFacebookLogin() async {
-    /*facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    if (await facebookLogin.isLoggedIn) {
-      facebookLogin.logOut();
-    }
-    final FacebookLoginResult result =
-        await facebookLogin.logIn(["email", "public_profile"]);
-    print(result);
-    switch (result.status) {
+    print("Login View FB Login");
+    final res = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
+    switch (res.status) {
+      case FacebookLoginStatus.success:
+        final FacebookAccessToken accessToken = res.accessToken;
+        print('Access token: ${accessToken.token}');
+        final profile = await fb.getUserProfile();
+        print('Hello, ${profile.name}! You ID: ${profile.userId}');
+        final imageUrl = await fb.getProfileImageUrl(width: 100);
+        print('Your profile image: $imageUrl');
+        final email = await fb.getUserEmail();
+        if (email != null) print('And your email is $email');
+        apiPresenter.doSocialLogin('Facebook', profile.userId, profile.name,
+            email ?? "", imageUrl ?? "", context);
+        break;
+      case FacebookLoginStatus.cancel:
+        break;
       case FacebookLoginStatus.error:
+        print('Error while log in: ${res.error}');
         break;
-      case FacebookLoginStatus.cancelledByUser:
-        break;
-      case FacebookLoginStatus.loggedIn:
-        Utilities.loading(context);
-        var graphResponse = await http.get(
-            "https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture&access_token=${result.accessToken.token}");
-        var profile = json.decode(graphResponse.body);
-        print(profile);
-        var email = '';
-        var profileUrl = '';
-        try {
-          email = profile['email'];
-        } catch (error) {}
-        try {
-          profileUrl = profile['picture']['data']['url'];
-        } catch (error) {}
-        apiPresenter.doSocialLogin('Facebook', profile['id'], profile['name'],
-            email, profileUrl, context);
-    }*/
-
-    FacebookAuth.instance
-        .login(loginBehavior: LoginBehavior.dialogOnly)
-        .then((accessToken) {
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(accessToken.accessToken.token);
-      FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential)
-          .then((userCredential) {
-        print("Login Details : ${userCredential.user.uid}");
-        print("Login Details : ${userCredential.user.displayName}");
-        print("Login Details : ${userCredential.user.email}");
-        print("Login Details : ${userCredential.user.photoURL}");
-
-        apiPresenter.doSocialLogin(
-            'Facebook',
-            userCredential.user.uid,
-            userCredential.user.displayName,
-            userCredential.user.email ?? "",
-            userCredential.user.photoURL ?? "",
-            context);
-      });
-    }).onError((error, stackTrace) {
-      print("error + ${error.message}");
-      Utilities.loading(context, status: false);
-    });
+    }
+    Utilities.loading(context, status: false);
   }
 
   onClickAppleLogin() async {
@@ -150,6 +116,26 @@ class _GuidlineView03State extends State<GuidlineView03>
     }
   }
 
+  Future<void> onClickGoogleLogin() async {
+    try {
+      final user = await GoogleSignInApi.login();
+      if (user != null) {
+        print("user details => $user");
+        Utilities.loading(context);
+        print("Login ID : ${user.id}");
+        print("Login DisplayName : ${user.displayName}");
+        print("Login Email : ${user.email}");
+        print("Login PhotoUrl : ${user.photoUrl}");
+        apiPresenter.doSocialLogin('Google', user.id, user.displayName,
+            user.email, user.photoUrl, context);
+      }
+    } catch (error) {
+      print("error + ${error.message}");
+      Utilities.loading(context, status: false);
+      print(error);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
@@ -177,45 +163,69 @@ class _GuidlineView03State extends State<GuidlineView03>
                         paddingMedium * 2,
                       ),
                       CommonButton(
-                        width: MediaQuery.of(context).size.width / 1.4,
-                        buttonText: AppStrings.signupWithEmail ,buttonFontStyle: primaryMedium(fontSize:MediaQuery.of(context).size.width < 385? 09:textSmall),
-                        onPressed: () {
-                          Navigator.pushNamed(context, RouteSignupView);
+                        width: width / 1.4,
+                        buttonText: AppStrings.signupWithEmail,
+                        buttonFontStyle: primaryMedium(
+                            fontSize: MediaQuery.of(context).size.width < 385
+                                ? 09
+                                : textSmall),
+                        onPressed: () async {
+                          bool _result =
+                              await SessionManager.getBooleanData(IS_ROUTINE);
+                          if (_result) {
+                            Utilities.loading(context);
+                            onClickGoogleLogin();
+                            Utilities.loading(context, status: false);
+                          } else {
+                            Navigator.of(context)
+                                .push(CustomPageRoute(child: GuidlineView()));
+                          }
                         },
                       ),
                       commonSizedBox(paddingMedium + 6),
-                      CommonButton(
-                        onPressed: () async {
-                          bool _result =
-                              await SessionManager.getBooleanData(IS_ROUTINE);
-                          if (_result) {
-                            Utilities.loading(context);
-                            onClickFacebookLogin();
-                          } else {
-                            Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
-                          }
-                        },
-                        width: MediaQuery.of(context).size.width / 1.4,
-                        buttonText: AppStrings.continueWithFB,
-                          buttonFontStyle: primaryMedium(fontSize:MediaQuery.of(context).size.width < 385? 09:textSmall)
+                      Visibility(
+                        visible: true,
+                        child: CommonButton(
+                            onPressed: () async {
+                              bool _result =
+                                  await SessionManager.getBooleanData(
+                                      IS_ROUTINE);
+                              if (_result) {
+                                Utilities.loading(context);
+                                onClickFacebookLogin();
+                              } else {
+                                Navigator.of(context).push(
+                                    CustomPageRoute(child: GuidlineView()));
+                              }
+                            },
+                            width: MediaQuery.of(context).size.width / 1.4,
+                            buttonText: AppStrings.continueWithFB,
+                            buttonFontStyle: primaryMedium(
+                                fontSize:
+                                    MediaQuery.of(context).size.width < 385
+                                        ? 09
+                                        : textSmall)),
                       ),
-                      commonSizedBox(paddingMedium * 2),
-                      CommonButton(
-                        onPressed: () async {
-                          bool _result =
-                              await SessionManager.getBooleanData(IS_ROUTINE);
-                          if (_result) {
-                            Utilities.loading(context);
-                            onClickAppleLogin();
-                          } else {
-                            Navigator.of(context).push(CustomPageRoute(child: GuidlineView()));
-                          }
-                        },
-                        width: MediaQuery.of(context).size.width / 1.4,
-                        buttonText: AppStrings.continueWithApple,
-                          buttonFontStyle: primaryMedium(fontSize:MediaQuery.of(context).size.width < 385? 09:textSmall)
-                      ),
-                      commonSizedBox(paddingMedium * 4),
+                      commonSizedBox(paddingMedium + 6),
+                      Platform.isIOS?CommonButton(
+                          onPressed: () async {
+                            bool _result =
+                                await SessionManager.getBooleanData(IS_ROUTINE);
+                            if (_result) {
+                              Utilities.loading(context);
+                              onClickAppleLogin();
+                            } else {
+                              Navigator.of(context)
+                                  .push(CustomPageRoute(child: GuidlineView()));
+                            }
+                          },
+                          width: MediaQuery.of(context).size.width / 1.4,
+                          buttonText: AppStrings.continueWithApple,
+                          buttonFontStyle: primaryMedium(
+                              fontSize: MediaQuery.of(context).size.width < 385
+                                  ? 09
+                                  : textSmall)):Container(),
+                      Platform.isIOS?commonSizedBox(paddingMedium * 4):commonSizedBox(paddingMedium),
                       InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, RouteLoginView);
@@ -244,10 +254,10 @@ class _GuidlineView03State extends State<GuidlineView03>
         AppStrings.termsText,
         style: TextStyle(
           color: Colors.blue[200],
-          decorationColor:Colors.blue[200],
+          decorationColor: Colors.blue[200],
           decoration: TextDecoration.underline,
           fontFamily: FontNamelight,
-          fontSize:MediaQuery.of(context).size.width < 385? 09: textSmall,
+          fontSize: MediaQuery.of(context).size.width < 385 ? 09 : textSmall,
         ),
       ),
     );

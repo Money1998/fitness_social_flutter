@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:montage/api/WebFields.dart';
 import 'package:montage/constants/app_strings.dart';
 import 'package:montage/constants/assets_images.dart';
 import 'package:montage/constants/endpoints.dart';
@@ -160,6 +161,7 @@ class _GuidlineView05State extends State<GuidlineView05> {
             } else {
               SessionManager.setBooleanData(IS_ROUTINE, true);
               globals.gender = buttonData[selectedIndex].buttonText;
+              SessionManager.setStringData(WebFields.GENDER, globals.gender);
               // Navigator.pushNamed(context, RouteGuildlinePage03);
               Navigator.pushNamed(context, RouteGuildlineExtraPage);
             }

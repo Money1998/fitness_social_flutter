@@ -16,6 +16,7 @@ import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/constants/endpoints.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/constants/svg_images.dart';
+import 'package:montage/customs/colorTheme.dart';
 import 'package:montage/customs/custom_subpage_appBar.dart';
 import 'package:montage/db/db_helper.dart';
 import 'package:montage/db/post_model.dart';
@@ -51,16 +52,20 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   int currentPos = 0;
   var selectedIndex = -1;
   var favoritesList = [];
+  List<dynamic> countList = [];
+  List<String> countFilterDropdown = [];
   bool isLoading = true;
   bool isSelected = true;
   String userId = "";
   String questionId = "";
   String questionTitle = "";
   String days = "";
+  String countDays = "";
   int chillCount = 0;
   int connectCount = 0;
   int chargeCount = 0;
   Future<List<Post>> posts;
+  List<dynamic> strings = ['one', 'two', 'three', 'four', 'five'];
   dynamic snackBar = SnackBar(
     content: Text('Yay! A SnackBar!'),
   );
@@ -634,14 +639,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                       children: [
                         Text(
                           userName['full_name'],
-                          style: themeFontRegular(fontSize: textMedium + 2),
+                          style: themeFontRegular(fontSize: textMedium),
                         ),
-                        // Text(
-                        //   "85 lvl",
-                        //   style: themeFontRegular(
-                        //     fontSize: textSmall + 2,
-                        //   ),
-                        // ),
                         SizedBox(
                           width: paddingSmall,
                         ),
@@ -708,84 +707,129 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     }
   }
 
-  topView() {
-    return Container(
-      margin: EdgeInsets.only(
-        top: paddingSmall * 2,
-        left: commonPadding * 1.5,
-        right: commonPadding * 1.5,
-      ),
-      padding: EdgeInsets.only(
-          left: paddingSmall * 2,
-          right: paddingSmall * 2,
-          top: paddingSmall * 2,
-          bottom: paddingSmall * 2),
-      decoration: BoxDecoration(
-        color: colorBackground,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    "45  ",
-                    style: themeFontSemiBold(fontSize: textSmall + 2),
-                  ),
-                  Text(
-                    "DAYS STREAK",
-                    style: themeFontRegular(),
-                  ),
-                ],
-              ),
-              SvgPicture.asset(
-                SvgImages.shareIc,
-                height: smallIconSize,
-                width: smallIconSize,
-              ),
-            ],
-          ),
-          Divider(
-            thickness: 0.7,
-            color: dividerColor,
-          ),
-          Utilities.commonSizedBox(paddingSmall),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              progressBar(
-                AppStrings.chillCap,
-                '$chillCount',
-                [
-                  Color(0xff8B00FF),
-                  Color(0xff662D91),
-                ],
-              ),
-              progressBar(
-                AppStrings.connectCap,
-                '$connectCount',
-                [
-                  Color(0xff8B00FF),
-                  Color(0xff662D91),
-                ],
-              ),
-              progressBar(
-                AppStrings.chargeCap,
-                '$chargeCount',
-                [
-                  Color(0xff8B00FF),
-                  Color(0xff662D91),
-                ],
-              )
-            ],
-          ),
-        ],
+  dropDownUI() {
+    return Theme(
+      data: Theme.of(context).copyWith(
+          scrollbarTheme: ScrollbarThemeData().copyWith(
+        thumbColor: MaterialStateProperty.all(colorTheme),
+      )),
+      child: DropdownButton<String>(
+        menuMaxHeight: 150,
+        elevation: 10,
+        style: themeFontSemiBold(fontSize: textSmall + 2),
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        items: countFilterDropdown.map((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+            ),
+          );
+        }).toList(),
+        underline: Container(
+          height: 2,
+          color: colorTheme,
+        ),
+        onChanged: (newValue) {
+          setState(() {
+            countDays = newValue;
+            setValueDropdown(countDays);
+          });
+        },
+        hint: Text(
+          countDays,
+          style: themeFontSemiBold(fontSize: textSmall + 2),
+        ),
+        dropdownColor: lightAppbar,
       ),
     );
+  }
+
+  topView() {
+    if (isLoading) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return Container(
+        margin: EdgeInsets.only(
+          top: paddingSmall * 2,
+          left: commonPadding * 1.5,
+          right: commonPadding * 1.5,
+        ),
+        padding: EdgeInsets.only(
+            left: paddingSmall * 2,
+            right: paddingSmall * 2,
+            top: paddingSmall * 0,
+            bottom: paddingSmall * 2),
+        decoration: BoxDecoration(
+          color: colorBackground,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 10,
+                    ),
+                    dropDownUI(),
+                    Container(
+                      width: 20,
+                    ),
+                    Text(
+                      "STREAK",
+                      style: themeFontRegular(),
+                    ),
+                  ],
+                ),
+                SvgPicture.asset(
+                  SvgImages.shareIc,
+                  height: smallIconSize,
+                  width: smallIconSize,
+                ),
+              ],
+            ),
+            Divider(
+              thickness: 0.7,
+              color: dividerColor,
+            ),
+            Utilities.commonSizedBox(paddingSmall),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                progressBar(
+                  AppStrings.chillCap,
+                  '${chillCount}',
+                  [
+                    Color(0xff8B00FF),
+                    Color(0xff662D91),
+                  ],
+                ),
+                progressBar(
+                  AppStrings.connectCap,
+                  '${connectCount}',
+                  [
+                    Color(0xff8B00FF),
+                    Color(0xff662D91),
+                  ],
+                ),
+                progressBar(
+                  AppStrings.chargeCap,
+                  '${chargeCount}',
+                  [
+                    Color(0xff8B00FF),
+                    Color(0xff662D91),
+                  ],
+                )
+              ],
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   mediaCard() {
@@ -1009,7 +1053,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   }
 
   progressBar(String headerText, String centerText, List<Color> colors) {
-    double percent = (double.tryParse(centerText)/500);
+    double percent = (double.tryParse(centerText) / 500);
     return Column(
       children: [
         Text(
@@ -1109,7 +1153,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     }
   }
 
-  Future<String> getTotalPageView(String requestCode) async {
+  Future<dynamic> getTotalPageView(String requestCode) async {
     var userID = await SessionManager.getStringData('userId');
     var url = WebUrl.QUESTION_URL + requestCode + userID;
     setState(() {
@@ -1123,17 +1167,40 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
       dynamic object = await jsonDecode(response.body);
       if (object != null) {
         setState(() {
-          chillCount = object['data']['Chill'];
-          connectCount = object['data']['CONNECT'];
-          chargeCount = object['data']['CHARGE'];
+          countList.add(object['data']);
+          print("countList => $countList");
+          countDays = countList[0][0]['days'];
+          chillCount = countList[0][0]['counts']['Chill'];
+          connectCount = countList[0][0]['counts']['CONNECT'];
+          chargeCount = countList[0][0]['counts']['CHARGE'];
+          getValueDropdown(countList);
           isLoading = false;
         });
-
       }
     }
   }
 
-  Future<QuestionsModel> getDayQuestion(String requestCode) async {
+  Future<dynamic> getValueDropdown(List<dynamic> countList) async {
+    countFilterDropdown.clear();
+    for (int i = 0; i < countList[0].length; i++) {
+      print("sl => ${countList[0][i]["days"]}");
+      countFilterDropdown.add(countList[0][i]["days"]);
+      print("countFilterDropdown => $countFilterDropdown");
+    }
+  }
+
+  Future<dynamic> setValueDropdown(String countDays) async {
+    for (int i = 0; i < countList[0].length; i++) {
+      print("sl => ${countList[0][i]["days"]}");
+      if(countDays==countList[0][i]["days"]){
+        chillCount = countList[0][i]['counts']['Chill'];
+        connectCount = countList[0][i]['counts']['CONNECT'];
+        chargeCount = countList[0][i]['counts']['CHARGE'];
+      }
+    }
+  }
+
+  Future<dynamic> getDayQuestion(String requestCode) async {
     setState(() {
       optionList.clear();
       isLoading = true;
@@ -1341,6 +1408,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     );
   }
 
+  ListView countProgressList(List countList) {}
+
   Future<void> setFeelResponse(String optionValue, String msg) async {
     List<QuestionsOption> newOptionList = [];
     DateLoad = await SessionManager.getDateTime(DATE_TIME);
@@ -1423,6 +1492,21 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   }
 }
 
+class PageCount {
+  String days;
+  List<Counts> counts;
+
+  PageCount({this.days, this.counts});
+}
+
+class Counts {
+  int CHILL;
+  int CONNECT;
+  int CHARGE;
+
+  Counts({this.CHILL, this.CONNECT, this.CHARGE});
+}
+
 class QuestionsModel {
   String id;
   String title;
@@ -1437,124 +1521,4 @@ class QuestionsOption {
   bool isSelected;
 
   QuestionsOption({this.answer, this.isSelected});
-}
-
-class GradientRectSliderTrackShape extends SliderTrackShape
-    with BaseSliderTrackShape {
-  /// Create a slider track that draws two rectangles with rounded outer edges.
-  const GradientRectSliderTrackShape();
-
-  @override
-  void paint(
-    PaintingContext context,
-    Offset offset, {
-    @required RenderBox parentBox,
-    @required SliderThemeData sliderTheme,
-    @required Animation<double> enableAnimation,
-    @required TextDirection textDirection,
-    @required Offset thumbCenter,
-    bool isDiscrete = false,
-    bool isEnabled = false,
-    double additionalActiveTrackHeight = 2,
-  }) {
-    assert(context != null);
-    assert(offset != null);
-    assert(parentBox != null);
-    assert(sliderTheme != null);
-    assert(sliderTheme.disabledActiveTrackColor != null);
-    assert(sliderTheme.disabledInactiveTrackColor != null);
-    assert(sliderTheme.activeTrackColor != null);
-    assert(sliderTheme.inactiveTrackColor != null);
-    assert(sliderTheme.thumbShape != null);
-    assert(enableAnimation != null);
-    assert(textDirection != null);
-    assert(thumbCenter != null);
-    // If the slider [SliderThemeData.trackHeight] is less than or equal to 0,
-    // then it makes no difference whether the track is painted or not,
-    // therefore the painting  can be a no-op.
-    if (sliderTheme.trackHeight <= 0) {
-      return;
-    }
-    LinearGradient gradient = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: <Color>[
-          Color(0xffBA00FF),
-          Color(0xff3C0662),
-        ]);
-    final Rect trackRect = getPreferredRect(
-      parentBox: parentBox,
-      offset: offset,
-      sliderTheme: sliderTheme,
-      isEnabled: isEnabled,
-      isDiscrete: isDiscrete,
-    );
-    // Assign the track segment paints, which are leading: active and
-    // trailing: inactive.
-    final ColorTween activeTrackColorTween = ColorTween(
-        begin: sliderTheme.disabledActiveTrackColor,
-        end: sliderTheme.activeTrackColor);
-    final ColorTween inactiveTrackColorTween = ColorTween(
-        begin: sliderTheme.disabledInactiveTrackColor,
-        end: sliderTheme.inactiveTrackColor);
-    final Paint activePaint = Paint()
-      ..shader = gradient.createShader(trackRect)
-      ..color = activeTrackColorTween.evaluate(enableAnimation);
-    final Paint inactivePaint = Paint()
-      ..color = inactiveTrackColorTween.evaluate(enableAnimation);
-    Paint leftTrackPaint;
-    Paint rightTrackPaint;
-    switch (textDirection) {
-      case TextDirection.ltr:
-        leftTrackPaint = activePaint;
-        rightTrackPaint = inactivePaint;
-        break;
-      case TextDirection.rtl:
-        leftTrackPaint = inactivePaint;
-        rightTrackPaint = activePaint;
-        break;
-    }
-
-    final Radius trackRadius = Radius.circular(trackRect.height / 2);
-    final Radius activeTrackRadius = Radius.circular(trackRect.height / 2 + 1);
-
-    context.canvas.drawRRect(
-      RRect.fromLTRBAndCorners(
-        trackRect.left,
-        (textDirection == TextDirection.ltr)
-            ? trackRect.top - (additionalActiveTrackHeight / 2)
-            : trackRect.top,
-        thumbCenter.dx,
-        (textDirection == TextDirection.ltr)
-            ? trackRect.bottom + (additionalActiveTrackHeight / 2)
-            : trackRect.bottom,
-        topLeft: (textDirection == TextDirection.ltr)
-            ? activeTrackRadius
-            : trackRadius,
-        bottomLeft: (textDirection == TextDirection.ltr)
-            ? activeTrackRadius
-            : trackRadius,
-      ),
-      leftTrackPaint,
-    );
-    context.canvas.drawRRect(
-      RRect.fromLTRBAndCorners(
-        thumbCenter.dx,
-        (textDirection == TextDirection.rtl)
-            ? trackRect.top - (additionalActiveTrackHeight / 2)
-            : trackRect.top,
-        trackRect.right,
-        (textDirection == TextDirection.rtl)
-            ? trackRect.bottom + (additionalActiveTrackHeight / 2)
-            : trackRect.bottom,
-        topRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
-        bottomRight: (textDirection == TextDirection.rtl)
-            ? activeTrackRadius
-            : trackRadius,
-      ),
-      rightTrackPaint,
-    );
-  }
 }

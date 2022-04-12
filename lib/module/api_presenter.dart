@@ -206,10 +206,12 @@ class ApiPresenter {
 
   doSocialLogin(String type, String socialId, String fullName, email, profile,
       BuildContext context) async {
+    var personTypeS = await SessionManager.getStringData(WebFields.USERTYPE);
+    var genderS = await SessionManager.getStringData(WebFields.GENDER);
     String fcmToken = '';
-    String personType = globals.userType;
-    String categoryId = globals.categoryId;
-    String gender = globals.gender;
+    String personType = globals.userType??personTypeS;
+    String categoryId = globals.categoryId??'60393f79434d43160ce01157';
+    String gender = globals.gender??genderS;
     Map requestParam = toSocialLogin(type, personType, fcmToken, socialId,
         categoryId, fullName, email, profile, gender);
     print(requestParam);

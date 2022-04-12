@@ -9,16 +9,16 @@
       "client_info": {
         "mobilesdk_app_id": "1:533991215882:android:cbce64e39e0f4c6308a0f3",
         "android_client_info": {
-          "package_name": "com.example.montagedemo"
+          "package_name": "com.montage.io"
         }
       },
       "oauth_client": [
         {
-          "client_id": "533991215882-a53fpknaq5nbepg49uqq8kf084bpqqks.apps.googleusercontent.com",
+          "client_id": "533991215882-c3n91hnsugvf0cm5tjlvnr3omp5kc2ud.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.montage.io",
-            "certificate_hash": "817bc11ff61c271f341cb26d93c7cbb5693bfb0e"
+            "certificate_hash": "b897a214773620e3f688a162a51e13cbc60ba177"
           }
         },
         {
@@ -37,6 +37,13 @@
             {
               "client_id": "533991215882-6ir02r6kdjc5o9tt6050unsjgekt3edi.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "533991215882-itpne8m07fp95usfnrmnglmqukrd14rm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "montage.com"
+              }
             }
           ]
         }

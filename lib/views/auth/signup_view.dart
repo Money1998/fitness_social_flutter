@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
@@ -23,6 +23,7 @@ import 'package:montage/utils/session_manager.dart';
 import 'package:montage/utils/text_styles.dart';
 import 'package:montage/utils/utilites.dart';
 import 'package:montage/utils/validate_types.dart';
+import 'package:montage/views/auth/login_view.dart';
 import 'package:montage/views/common/common_sqaure_btn.dart';
 import 'package:montage/customs/global_var.dart' as globals;
 import 'package:montage/views/home/tab_view.dart';
@@ -40,8 +41,7 @@ class SignupView extends StatefulWidget {
 
 class _SignupViewState extends State<SignupView> implements ApiCallBacks {
   ApiPresenter _apiPresenter;
-
-  // final facebookLogin = FacebookLogin();
+  final fb = FacebookLogin();
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
   bool isLoading = false;
 
@@ -87,84 +87,49 @@ class _SignupViewState extends State<SignupView> implements ApiCallBacks {
   }
 
   onClickFacebookLogin() async {
-    print("Signup View FB Login");
-    /*facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
-    if (await facebookLogin.isLoggedIn) {
-      facebookLogin.logOut();
-    }
-    final FacebookLoginResult result =
-        await facebookLogin.logIn(["email", "public_profile"]);
-    switch (result.status) {
+    print("Login View FB Login");
+    final res = await fb.logIn(permissions: [
+      FacebookPermission.publicProfile,
+      FacebookPermission.email,
+    ]);
+    switch (res.status) {
+      case FacebookLoginStatus.success:
+        final FacebookAccessToken accessToken = res.accessToken;
+        print('Access token: ${accessToken.token}');
+        final profile = await fb.getUserProfile();
+        print('Hello, ${profile.name}! You ID: ${profile.userId}');
+        final imageUrl = await fb.getProfileImageUrl(width: 100);
+        print('Your profile image: $imageUrl');
+        final email = await fb.getUserEmail();
+        if (email != null) print('And your email is $email');
+        _apiPresenter.doSocialLogin('Facebook', profile.userId, profile.name,
+            email ?? "", imageUrl ?? "", context);
+        break;
+      case FacebookLoginStatus.cancel:
+        break;
       case FacebookLoginStatus.error:
+        print('Error while log in: ${res.error}');
         break;
-      case FacebookLoginStatus.cancelledByUser:
-        break;
-      case FacebookLoginStatus.loggedIn:
-        Utilities.loading(context);
-        var graphResponse = await http.get(
-            "https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email,picture&access_token=${result.accessToken.token}");
-        var profile = json.decode(graphResponse.body);
-        print(profile['name'] + profile['id']);
-        print('Facebook Login');
-        var email = '';
-        var profileUrl = '';
-        try {
-          email = profile['email'];
-        } catch (error) {}
-        try {
-          profileUrl = profile['picture']['data']['url'];
-        } catch (error) {}
-        _apiPresenter.doSocialLogin('Facebook', profile['id'], profile['name'],
-            email, profileUrl, context);
-    }*/
-
-    FacebookAuth.instance
-        .login(loginBehavior: LoginBehavior.dialogOnly)
-        .then((accessToken) {
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(accessToken.accessToken.token);
-      FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential)
-          .then((userCredential) {
-        print("Login Details : ${userCredential.user.uid}");
-        print("Login Details : ${userCredential.user.displayName}");
-        print("Login Details : ${userCredential.user.email}");
-        print("Login Details : ${userCredential.user.photoURL}");
-
-
-        _apiPresenter.doSocialLogin(
-            'Facebook',
-            userCredential.user.uid,
-            userCredential.user.displayName,
-            userCredential.user.email ?? "",
-            userCredential.user.photoURL ?? "",
-            context);
-      });
-    }).onError((error, stackTrace) {
-      print("error + ${error.message}");
-    });
+    }
+    Utilities.loading(context, status: false);
   }
 
-  onClickGoogleLogin() async {
+  Future<void> onClickGoogleLogin() async {
     try {
-      final GoogleSignInAccount googleAccountUser =
-          await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication googleAuth =
-          await googleAccountUser.authentication;
-      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-      print(userCredential.user);
-      _apiPresenter.doSocialLogin(
-          'Google',
-          userCredential.user.uid,
-          userCredential.user.displayName,
-          userCredential.user.email,
-          userCredential.user.photoURL,
-          context);
+      final user = await GoogleSignInApi.login();
+      if (user != null) {
+        print("user details => $user");
+        Utilities.loading(context);
+        print("Login ID : ${user.id}");
+        print("Login DisplayName : ${user.displayName}");
+        print("Login Email : ${user.email}");
+        print("Login PhotoUrl : ${user.photoUrl}");
+        _apiPresenter.doSocialLogin('Google', user.id, user.displayName,
+            user.email, user.photoUrl, context);
+      }
     } catch (error) {
+      print("error + ${error.message}");
+      Utilities.loading(context, status: false);
       print(error);
     }
   }
@@ -341,6 +306,7 @@ class _SignupViewState extends State<SignupView> implements ApiCallBacks {
                   onTap: () {
                     Utilities.loading(context);
                     onClickGoogleLogin();
+                    Utilities.loading(context, status: false);
                   },
                   child: socialIcon(
                     SvgImages.googleIc,
@@ -375,6 +341,7 @@ class _SignupViewState extends State<SignupView> implements ApiCallBacks {
                   onTap: () {
                     Utilities.loading(context);
                     onClickGoogleLogin();
+                    Utilities.loading(context, status: false);
                   },
                   child: socialIcon(
                     SvgImages.googleIc,
