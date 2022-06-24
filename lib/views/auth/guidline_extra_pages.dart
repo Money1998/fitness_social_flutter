@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/constants/app_strings.dart';
-import 'package:montage/constants/assets_images.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/customs/responsive_widget.dart';
 import 'package:montage/module/api_presenter.dart';
@@ -9,7 +8,6 @@ import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/dimens.dart';
 import 'package:montage/utils/text_styles.dart';
 import 'package:montage/utils/utilites.dart';
-import 'package:montage/views/auth/guidline_page05_view.dart';
 import 'package:montage/views/common/common_sqaure_btn.dart';
 import 'package:montage/customs/global_var.dart' as globals;
 
@@ -60,7 +58,7 @@ class _GuidLineExtraPagesState extends State<GuidLineExtraPages>
     return ResponsiveWidget(
       scaffoldKey: scaffoldKey,
       appBar: AppBar(
-        backgroundColor:Color.fromRGBO(244, 221, 254, 0.7),
+        backgroundColor: Color.fromRGBO(244, 221, 254, 0.7),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, size: 30, color: colorTheme),
           onPressed: () {
@@ -132,10 +130,8 @@ class _GuidLineExtraPagesState extends State<GuidLineExtraPages>
           splashColor: colorPrimary,
           onTap: () {
             setState(() {
-              questionList[currentPos]
-                  .optionsList
-                  .forEach((element) => element.isSelected = false);
-              questionList[currentPos].optionsList[index].isSelected = true;
+              questionList[currentPos].optionsList[index].isSelected =
+                  !questionList[currentPos].optionsList[index].isSelected;
             });
           },
           child: Padding(
@@ -152,10 +148,9 @@ class _GuidLineExtraPagesState extends State<GuidLineExtraPages>
       children: [
         CommonButton(
           isleadIcon: false,
-          leadIcon: AssetsImage.owlIc,
-          isRightArrow: true,
+          isRightArrow: false,
           width: MediaQuery.of(context).size.width / 1.4,
-          buttonText: AppStrings.next,
+          buttonText: Utilities.capitalize(AppStrings.next),
           onPressed: () {
             for (QuestionsModel model in questionList) {
               print(model.question);
@@ -187,7 +182,21 @@ class _GuidLineExtraPagesState extends State<GuidLineExtraPages>
                 globals.questionData = data;
 
                 Navigator.pushNamed(context, RouteGuildlinePage03);
+                print("globals.questionData ==> ${globals.questionData}");
               } else {
+                List<dynamic> data = [];
+                for (int i = 0; i < questionList.length; i++) {
+                  String answer = "";
+                  for (QuestionsOption model in questionList[i].optionsList) {
+                    if (model.isSelected) {
+                      answer = model.answer;
+                      break;
+                    }
+                  }
+                  data.add({"id": questionList[i].id, "answer": answer});
+                }
+                globals.questionData = data;
+                print("globals.questionData ==> ${globals.questionData}");
                 print("object");
                 setState(() {
                   currentPos = currentPos + 1;
@@ -253,12 +262,11 @@ class _GuidLineExtraPagesState extends State<GuidLineExtraPages>
           userId: object[i]["userId"] ?? "".toString()));
     }
 
-    setState(() {
-      if (list.isNotEmpty) {
-        currentPos = 0;
-        questionList = list;
-      }
-    });
+    if (list.isNotEmpty) {
+      currentPos = 0;
+      questionList = list;
+    }
+    setState(() {});
   }
 }
 

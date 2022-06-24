@@ -16,7 +16,6 @@ import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/constants/endpoints.dart';
 import 'package:montage/constants/router.dart';
 import 'package:montage/constants/svg_images.dart';
-import 'package:montage/customs/colorTheme.dart';
 import 'package:montage/customs/custom_subpage_appBar.dart';
 import 'package:montage/db/db_helper.dart';
 import 'package:montage/db/post_model.dart';
@@ -51,10 +50,11 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   DateTime now = new DateTime.now();
   int currentPos = 0;
   var selectedIndex = -1;
-  var favoritesList = [];
+  var montageList = [];
   List<dynamic> countList = [];
   List<String> countFilterDropdown = [];
   bool isLoading = true;
+  bool isQuestionAns = false;
   bool isSelected = true;
   String userId = "";
   String questionId = "";
@@ -64,6 +64,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   int chillCount = 0;
   int connectCount = 0;
   int chargeCount = 0;
+  double _width = 200;
+  double _height = 200;
   Future<List<Post>> posts;
   List<dynamic> strings = ['one', 'two', 'three', 'four', 'five'];
   dynamic snackBar = SnackBar(
@@ -74,6 +76,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   DBHelper dbHelper;
 
   var habitList = [];
+
+  bool loading = true;
 
   _ProfileViewState() {
     apiPresenter = ApiPresenter(this);
@@ -131,7 +135,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
       },
     });
 
-    apiPresenter.getFavoritesListing(context, "5", "0");
+    apiPresenter.getFavoritesListing(context, "6", "0");
 
     super.initState();
   }
@@ -257,6 +261,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   }
 
   Widget setView() {
+    _width = isQuestionAns ? 0.0 : MediaQuery.of(context).size.width;
+    _height = isQuestionAns ? 0.0 : 310;
     if (isLoading) {
       return Center(child: CircularProgressIndicator());
     } else {
@@ -266,15 +272,22 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
             child: Column(
               children: [
                 profileView(),
-                setQuestionView(),
+                //setCardDemo(),
+                AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  curve: Curves.easeInCirc,
+                  width: _width,
+                  height: _height,
+                  child: setQuestionView(),
+                ),
                 topView(),
                 stepCard(),
                 mediaCard(),
                 topText(),
                 montageView(),
                 Utilities.commonSizedBox(paddingMedium * 2),
-                habitView(),
-                Utilities.commonSizedBox(paddingMedium * 2)
+                //habitView(),
+                Utilities.commonSizedBox(paddingMedium * 4)
               ],
             ),
           ));
@@ -426,8 +439,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
             onPressed: () {
               Navigator.pushNamed(context, RouteHabitsView).then((value) => {
                     habitList.clear(),
-                    favoritesList.clear(),
-                    apiPresenter.getFavoritesListing(context, "5", "0")
+                    montageList.clear(),
+                    apiPresenter.getFavoritesListing(context, "6", "0")
                   });
             },
             width: MediaQuery.of(context).size.width,
@@ -518,7 +531,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
           SizedBox(
             height: paddingSmall + 2,
           ),
-          favoritesList.length == 0
+          montageList.length == 0
               ? Center(
                   child: Text(
                   AppStrings.noMontageItemFound,
@@ -527,7 +540,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
               : Container(
                   child: StaggeredGridView.countBuilder(
                     crossAxisCount: 4,
-                    itemCount: favoritesList.length,
+                    itemCount: montageList.take(6).toList().length,
                     shrinkWrap: true,
                     physics: ScrollPhysics(),
                     padding: EdgeInsets.only(
@@ -541,7 +554,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.of(context).push(CustomPageRoute(
-                              child: AudioList(favoritesList[index]['_id'])));
+                              child: AudioList(montageList[index]['_id'])));
                         },
                         child: Stack(
                           alignment: Alignment.bottomLeft,
@@ -549,7 +562,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                             Image(
                               image: CachedNetworkImageProvider(
                                   RequestCode.apiEndPoint +
-                                      favoritesList[index]['image']),
+                                      montageList[index]['image']),
                               fit: BoxFit.cover,
                               height: MediaQuery.of(context).size.height,
                               width: MediaQuery.of(context).size.width,
@@ -567,7 +580,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                                 ),
                               ),
                               child: Text(
-                                favoritesList[index]['title'],
+                                montageList[index]['title'],
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: primaryMedium(
@@ -582,7 +595,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
                     staggeredTileBuilder: (int index) =>
                         new StaggeredTile.count(
                       2,
-                      index.isEven ? 3 : 2,
+                      index.isEven ? 3 : 2.5,
                     ),
                     mainAxisSpacing: 8.0,
                     crossAxisSpacing: 10.0,
@@ -1142,7 +1155,8 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
         requestCode.contains(RequestCode.FAVORITES_LIST)) {
       debugPrint("=====");
       debugPrint(object.toString());
-      favoritesList.addAll(object);
+      montageList.addAll(object);
+      print("montageList => ${montageList.length}");
 
       apiPresenter.habitListByUserId(context);
     } else {
@@ -1192,7 +1206,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
   Future<dynamic> setValueDropdown(String countDays) async {
     for (int i = 0; i < countList[0].length; i++) {
       print("sl => ${countList[0][i]["days"]}");
-      if(countDays==countList[0][i]["days"]){
+      if (countDays == countList[0][i]["days"]) {
         chillCount = countList[0][i]['counts']['Chill'];
         connectCount = countList[0][i]['counts']['CONNECT'];
         chargeCount = countList[0][i]['counts']['CHARGE'];
@@ -1211,6 +1225,7 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     String currentDateLoad = date.toString();
     DateLoad = await SessionManager.getDateTime(DATE_TIME);
     if (currentDateLoad == DateLoad) {
+      isQuestionAns = true;
       questionTitle = await SessionManager.getStringData(QUESTION_TITLE);
       setSelectedOptionList(requestCode);
     } else {
@@ -1437,6 +1452,9 @@ class _ProfileViewState extends State<ProfileView> implements ApiCallBacks {
     }
     optionList.clear();
     setState(() {
+      _height = 0;
+      _width = 0;
+      isQuestionAns = true;
       optionList.addAll(newOptionList);
       print("newOptionList Fill after=> $optionList");
       postOption(RequestCode.CREATE_QUESTION_OPTION, optionValue, msg);

@@ -154,6 +154,7 @@ class TextFieldCustomState extends State<TextFieldCustom> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          height: 45,
           decoration: BoxDecoration(
               color: widget.backgroundColor == null
                   ? Colors.transparent
@@ -163,7 +164,7 @@ class TextFieldCustomState extends State<TextFieldCustom> {
                     ? colorPrimary
                     : widget.inputBorderColor,
               ),
-              borderRadius: BorderRadius.circular(2.0)),
+              borderRadius: BorderRadius.circular(20.0)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -208,8 +209,7 @@ class TextFieldCustomState extends State<TextFieldCustom> {
                       prefixIcon: widget.prefixIcon,
                       suffixText: widget.suffixText,
                       suffixStyle: commontextStyle(),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: paddingSmall),
+                      contentPadding: const EdgeInsets.only(right: paddingSmall,left: paddingSmall+2,bottom: paddingSmall-2),
                       hintText: hintText,
                       hintStyle: inputBoxHintStyle(fontSize: textSmall + 2)),
                   style: widget.inputBoxTextStyle == null

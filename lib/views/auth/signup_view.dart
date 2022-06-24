@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:keyboard_avoider/keyboard_avoider.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
@@ -27,11 +25,6 @@ import 'package:montage/views/auth/login_view.dart';
 import 'package:montage/views/common/common_sqaure_btn.dart';
 import 'package:montage/customs/global_var.dart' as globals;
 import 'package:montage/views/home/tab_view.dart';
-import 'package:http/http.dart' as http;
-
-// import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-// import 'dart:io' show Platform;
-
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class SignupView extends StatefulWidget {

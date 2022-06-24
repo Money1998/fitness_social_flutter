@@ -148,7 +148,7 @@ class _TabViewState extends State<TabView> {
               decoration: BoxDecoration(
                   color: Colors.transparent,
                   border: Border.all(color: colorTheme),
-                  borderRadius: BorderRadius.circular(2.0)),
+                  borderRadius: BorderRadius.circular(20.0)),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:montage/constants/app_strings.dart';
 import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/dimens.dart';
 import 'package:montage/utils/text_styles.dart';
@@ -105,20 +108,25 @@ class _CommonHorizontalListViewState extends State<CommonHorizontalListView> {
                                         widget.borderRadius == null
                                             ? 12
                                             : widget.borderRadius),
-                                    child:Container(
+                                    child: Container(
                                       height: widget.height == null
                                           ? 120
                                           : widget.height,
                                       width: widget.width == null
                                           ? 100
                                           : widget.width,
-                                      child: Image(
-                                        fit: BoxFit.cover,
-                                        image: CachedNetworkImageProvider(
-                                            widget.horizontalList[index]
-                                            ['image']
-                                        ),
-                                      ),
+                                      child: widget.title != AppStrings.feedback
+                                          ? Image(
+                                              fit: BoxFit.cover,
+                                              image: CachedNetworkImageProvider(
+                                                  widget.horizontalList[index]
+                                                      ['image']),
+                                            )
+                                          : Image.file(
+                                              File(
+                                                  widget.horizontalList[index]),
+                                              fit: BoxFit.cover,
+                                            ),
                                     )
                                     /*CachedNetworkImage(
                                       imageUrl: widget.horizontalList[index]
@@ -130,32 +138,49 @@ class _CommonHorizontalListViewState extends State<CommonHorizontalListView> {
                                       width: widget.width == null
                                           ? 100
                                           : widget.width,
-                                    )*/,
+                                    )*/
+                                    ,
                                   ),
-                                  Container(
-                                    padding: EdgeInsets.all(paddingSmall),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff511F74).withOpacity(0.5),
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(
-                                            widget.borderRadius == null
-                                                ? 12
-                                                : widget.borderRadius),
-                                        bottomRight: Radius.circular(
-                                          widget.borderRadius == null
-                                              ? 12
-                                              : widget.borderRadius,
-                                        ),
-                                      ),
-                                    ),
-                                    child: Text(
-                                      "TRAIN YOUR BRAIN THIS NEW YEARS",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: primaryMedium(
-                                          fontSize: textVerySmall),
-                                    ),
-                                  )
+                                  widget.title != AppStrings.feedback
+                                      ? Container(
+                                          padding: EdgeInsets.all(paddingSmall),
+                                          decoration: BoxDecoration(
+                                            color: Color(0xff511F74)
+                                                .withOpacity(0.5),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(
+                                                  widget.borderRadius == null
+                                                      ? 12
+                                                      : widget.borderRadius),
+                                              bottomRight: Radius.circular(
+                                                widget.borderRadius == null
+                                                    ? 12
+                                                    : widget.borderRadius,
+                                              ),
+                                            ),
+                                          ),
+                                          child: Text(
+                                            "TRAIN YOUR BRAIN THIS NEW YEARS",
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: primaryMedium(
+                                                fontSize: textVerySmall),
+                                          ),
+                                        )
+                                      : InkWell(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              Icons.remove_circle,
+                                              color: Colors.red,
+                                              size: 30,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            removeImage(
+                                                widget.horizontalList[index]);
+                                          },
+                                        )
                                 ],
                               ),
                             ),
@@ -164,5 +189,11 @@ class _CommonHorizontalListViewState extends State<CommonHorizontalListView> {
         ],
       ),
     );
+  }
+
+  Future removeImage(index) async {
+    widget.horizontalList.remove(index);
+    setState(() {
+    });
   }
 }

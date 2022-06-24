@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:montage/constants/app_strings.dart';
-import 'package:montage/constants/router.dart';
 import 'package:montage/constants/svg_images.dart';
 import 'package:montage/utils/colors.dart';
 import 'package:montage/utils/dimens.dart';
@@ -11,6 +9,7 @@ class CommonButton extends StatelessWidget {
   CommonButton({
     this.onPressed,
     this.buttonText,
+    this.boxDecoration,
     this.width,
     this.isleadIcon=false,
     this.leadIcon,
@@ -23,6 +22,7 @@ class CommonButton extends StatelessWidget {
   final String buttonText;
   final double width;
   final bool isleadIcon;
+  final BoxDecoration boxDecoration;
   final String leadIcon;
   final bool isRightArrow;
   final Color backgroundColor;
@@ -34,10 +34,12 @@ class CommonButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         width: width,
-        decoration: BoxDecoration(
+        height: 43,
+        decoration:boxDecoration==null?BoxDecoration(
           color: backgroundColor == null?Colors.transparent:backgroundColor,
-          border: Border.all(color:borderColor ==null? colorPrimary:borderColor, width: 0.6),
-        ),
+          borderRadius: new BorderRadius.circular(20.0),
+          border: Border.all(color:colorPrimary, width: 0.6,style: BorderStyle.solid),
+        ):boxDecoration,
         padding: EdgeInsets.only(
           top: paddingMedium - 2,
           bottom: paddingMedium - 2,

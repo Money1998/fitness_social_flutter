@@ -123,7 +123,7 @@ class _GuidlinePage02ViewState extends State<GuidlinePage02View> {
   cardOvelyText(title, subTitle) {
     return Padding(
       padding:
-          EdgeInsets.only(left: paddingSmall + 4, bottom: paddingMedium + 4),
+          EdgeInsets.only(left: paddingSmall, bottom: paddingMedium + 4),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

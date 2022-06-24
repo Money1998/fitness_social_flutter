@@ -37,7 +37,6 @@ class _ChargeViewState extends State<ChargeView> implements ApiCallBacks {
 
   @override
   void initState() {
-    clickPageTypeCount("CHARGE");
     apiPresenter.getPostList(context, "CHARGE");
     super.initState();
   }
@@ -107,6 +106,7 @@ class _ChargeViewState extends State<ChargeView> implements ApiCallBacks {
             ),
             itemBuilder: (BuildContext context, int index) => InkWell(
               onTap: () {
+                clickPageTypeCount("CHARGE");
                 Navigator.of(context).push(CustomPageRoute(child:AudioList(chillList[index]['_id'])));
               },
               child: ClipRRect(

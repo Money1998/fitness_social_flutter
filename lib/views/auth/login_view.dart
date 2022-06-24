@@ -99,7 +99,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
         print("user details => $user");
         Utilities.loading(context);
         print("Login ID : ${user.id}");
-        print("Login DisplayName : ${user.displayName}");
+        print("Login DisplayName : ${user.displayName.toString().codeUnitAt(0)}");
         print("Login Email : ${user.email}");
         print("Login PhotoUrl : ${user.photoUrl}");
         apiPresenter.doSocialLogin('Google', user.id, user.displayName,
@@ -295,12 +295,11 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
                 ),
                 InkWell(
                   onTap: () async {
+                    Utilities.loading(context, status: true);
                     bool _result =
                         await SessionManager.getBooleanData(IS_ROUTINE);
                     if (_result) {
-                      Utilities.loading(context);
                       await onClickGoogleLogin();
-                      Utilities.loading(context, status: false);
                     } else {
                       Navigator.of(context)
                           .push(CustomPageRoute(child: GuidlineView()));
@@ -364,7 +363,6 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
                         await SessionManager.getBooleanData(IS_ROUTINE);
                     if (_result) {
                       await onClickGoogleLogin();
-                      Utilities.loading(context, status: false);
                     } else {
                       Navigator.of(context)
                           .push(CustomPageRoute(child: GuidlineView()));
@@ -495,7 +493,7 @@ class _LoginViewState extends State<LoginView> implements ApiCallBacks {
         );
       } else if (requestCode == RequestCode.SOCIAL_LOGIN) {
         print(object);
-        print("DATA LKJFDKL");
+        print("DATA $object");
         Utilities.loading(context, status: false);
         AppUser user = (AppUser.fromJson(object));
         apiPresenter.saveLoginResult(user);

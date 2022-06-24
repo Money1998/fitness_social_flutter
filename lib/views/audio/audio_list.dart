@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart';
 import 'package:montage/api/ApiInterface.dart';
 import 'package:montage/api/RequestCode.dart';
 import 'package:montage/api/WebFields.dart';
+import 'package:montage/api/WebUrl.dart';
 import 'package:montage/constants/app_strings.dart';
 import 'package:montage/constants/custom_page_route.dart';
 import 'package:montage/constants/svg_images.dart';
@@ -52,6 +56,7 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
 
   @override
   void initState() {
+
     apiPresenter.getPlayListById(context, widget.id);
     dbHelper = DBHelper();
 
@@ -103,44 +108,36 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                       children: [
                                         InkWell(
                                           onTap: () {
-                                            if (_trackDetail
-                                                .playlists[0]
-                                                .mediaType !=
-                                                null &&
-                                                _trackDetail
-                                                    .playlists[0]
-                                                    .mediaType
-                                                    .isNotEmpty) {
+                                            if (_trackDetail.playlists[0]
+                                                        .mediaType !=
+                                                    null &&
+                                                _trackDetail.playlists[0]
+                                                    .mediaType.isNotEmpty) {
                                               debugPrint("Media Type : " +
                                                   _trackDetail
-                                                      .playlists[0]
-                                                      .mediaType);
+                                                      .playlists[0].mediaType);
 
                                               if (_trackDetail
-                                                  .playlists[0]
-                                                  .mediaType ==
+                                                      .playlists[0].mediaType ==
                                                   "Audio") {
                                                 Navigator.of(context).push(
-                                                    CustomPageRoute(child:
-                                                            AudioPlayerList(
-                                                                _trackDetail)));
+                                                    CustomPageRoute(
+                                                        child: AudioPlayerList(
+                                                            _trackDetail)));
                                               } else if (_trackDetail
-                                                  .playlists[0]
-                                                  .mediaType ==
+                                                      .playlists[0].mediaType ==
                                                   "Link") {
                                                 debugPrint(_trackDetail
-                                                    .playlists[0]
-                                                    .link);
+                                                    .playlists[0].link);
 
                                                 launchURL(_trackDetail
-                                                    .playlists[0]
-                                                    .link);
+                                                    .playlists[0].link);
                                               } else {
                                                 Navigator.of(context).push(
-                                                    CustomPageRoute(child:
-                                                            VideoPlayerList(_trackDetail
-                                                                .playlists[
-                                                            0]
+                                                    CustomPageRoute(
+                                                        child: VideoPlayerList(
+                                                            _trackDetail
+                                                                .playlists[0]
                                                                 .video)));
                                               }
                                             }
@@ -153,7 +150,8 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                 _trackDetail.playlists.length
                                                         .toString() +
                                                     " Tracks " +
-                                                    convertTime(totalTime()).substring(0, 4),
+                                                    convertTime(totalTime())
+                                                        .substring(0, 4),
                                                 style: primaryMedium(
                                                     fontSize: textMedium),
                                               ),
@@ -182,17 +180,17 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                           decoration: BoxDecoration(
                                             color: colorPrimary,
                                             borderRadius:
-                                            BorderRadius.circular(12),
+                                                BorderRadius.circular(12),
                                           ),
                                           child: Column(
                                             children: List.generate(
                                               _trackDetail.playlists.length,
-                                                  (index) => InkWell(
+                                              (index) => InkWell(
                                                 onTap: () {
                                                   if (_trackDetail
-                                                      .playlists[index]
-                                                      .mediaType !=
-                                                      null &&
+                                                              .playlists[index]
+                                                              .mediaType !=
+                                                          null &&
                                                       _trackDetail
                                                           .playlists[index]
                                                           .mediaType
@@ -203,16 +201,16 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                             .mediaType);
 
                                                     if (_trackDetail
-                                                        .playlists[index]
-                                                        .mediaType ==
+                                                            .playlists[index]
+                                                            .mediaType ==
                                                         "Audio") {
-                                                      Navigator.of(context).push(
-                                                          CustomPageRoute(child:
-                                                          AudioPlayerList(
-                                                              _trackDetail)));
+                                                      Navigator.of(context)
+                                                          .push(CustomPageRoute(
+                                                              child: AudioPlayerList(
+                                                                  _trackDetail)));
                                                     } else if (_trackDetail
-                                                        .playlists[index]
-                                                        .mediaType ==
+                                                            .playlists[index]
+                                                            .mediaType ==
                                                         "Link") {
                                                       debugPrint(_trackDetail
                                                           .playlists[index]
@@ -222,20 +220,21 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                           .playlists[index]
                                                           .link);
                                                     } else {
-                                                      Navigator.of(context).push(
-                                                          CustomPageRoute(child:
-                                                          VideoPlayerList(_trackDetail
-                                                              .playlists[
-                                                          index]
-                                                              .video)));
+                                                      Navigator.of(context)
+                                                          .push(CustomPageRoute(
+                                                              child: VideoPlayerList(
+                                                                  _trackDetail
+                                                                      .playlists[
+                                                                          index]
+                                                                      .video)));
                                                     }
                                                   }
                                                 },
                                                 child: Container(
                                                   color:
-                                                  index == 0 || index == 1
-                                                      ? colorBackgroundgrey
-                                                      : colorBackground,
+                                                      index == 0 || index == 1
+                                                          ? colorBackgroundgrey
+                                                          : colorBackground,
                                                   padding: EdgeInsets.only(
                                                     top: paddingSmall * 2,
                                                     bottom: paddingSmall * 2,
@@ -244,8 +243,8 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
                                                     children: [
                                                       Flexible(
                                                           flex: 6,
@@ -253,18 +252,18 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                             children: [
                                                               Text(
                                                                 (index + 1)
-                                                                    .toString() +
+                                                                        .toString() +
                                                                     '  ' +
                                                                     _trackDetail
                                                                         .playlists[
-                                                                    index]
+                                                                            index]
                                                                         .title,
                                                                 maxLines: 15,
                                                                 style:
-                                                                onBackgroundLightRegular(
+                                                                    onBackgroundLightRegular(
                                                                   fontSize:
-                                                                  textSmall +
-                                                                      2,
+                                                                      textSmall +
+                                                                          2,
                                                                 ),
                                                               )
                                                             ],
@@ -272,27 +271,26 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                                       Flexible(
                                                         flex: 4,
                                                         child: Text(
-                                                          _trackDetail
-                                                              .playlists[
-                                                          index]
-                                                              .mediaType ==
-                                                              "Audio"
-                                                              ? convertTime(int
-                                                              .parse(_trackDetail
-                                                              .playlists[
-                                                          index]
-                                                              .time)).substring(0, 4)
+                                                          _trackDetail.playlists[index].mediaType ==
+                                                                  "Audio"
+                                                              ? convertTime(int.parse(
+                                                                      _trackDetail
+                                                                          .playlists[
+                                                                              index]
+                                                                          .time))
+                                                                  .substring(
+                                                                      0, 4)
                                                               : _trackDetail
-                                                              .playlists[
-                                                          index]
-                                                              .mediaType ==
-                                                              "Video"
-                                                              ? "Video"
-                                                              : "Youtube",
+                                                                          .playlists[
+                                                                              index]
+                                                                          .mediaType ==
+                                                                      "Video"
+                                                                  ? "Video"
+                                                                  : "Youtube",
                                                           style:
-                                                          onBackgroundRegular(
+                                                              onBackgroundRegular(
                                                             fontSize:
-                                                            textSmall + 2,
+                                                                textSmall + 2,
                                                           ),
                                                         ),
                                                       )
@@ -319,7 +317,10 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                             data:
                                                 "${_trackDetail.description}"),
                                         SizedBox(
-                                          height: MediaQuery.of(context).size.height*0.2,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.2,
                                         ),
                                         SizedBox(
                                           height: paddingLarge * 1.5,
@@ -412,13 +413,11 @@ class _AudioListState extends State<AudioList> implements ApiCallBacks {
                                       height: 50,
                                       child: InkWell(
                                         child: CommonButton(
-                                          buttonText:
-                                          AppStrings.addToMyMontage,
+                                          buttonText: AppStrings.addToMyMontage,
                                         ),
                                         onTap: () async {
                                           var userId = await SessionManager
-                                              .getStringData(
-                                              WebFields.USER_ID);
+                                              .getStringData(WebFields.USER_ID);
                                           Utilities.loading(context,
                                               status: true);
                                           if (_trackDetail.favorites.length ==

@@ -37,7 +37,6 @@ class _ChillViewState extends State<ChillView> implements ApiCallBacks {
 
   @override
   void initState() {
-    clickPageTypeCount("CHILL");
 
     apiPresenter.getPostList(context, "CHILL");
     super.initState();
@@ -64,6 +63,7 @@ class _ChillViewState extends State<ChillView> implements ApiCallBacks {
             ),
             itemBuilder: (BuildContext context, int index) => InkWell(
               onTap: () {
+                clickPageTypeCount("CHILL");
                 Navigator.of(context).push(CustomPageRoute(child:AudioList(chillList[index]['_id'])));
               },
               child: ClipRRect(

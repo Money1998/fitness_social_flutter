@@ -20,37 +20,42 @@ class EditProfileView extends StatefulWidget {
   _EditProfileViewState createState() => _EditProfileViewState();
 }
 
-class _EditProfileViewState extends State<EditProfileView> implements ApiCallBacks {
+class _EditProfileViewState extends State<EditProfileView>
+    implements ApiCallBacks {
   ApiPresenter apiPresenter;
+
   _EditProfileViewState() {
     apiPresenter = new ApiPresenter(this);
   }
+
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   final GlobalKey<TextFieldCustomState> fullNameState =
-  GlobalKey<TextFieldCustomState>();
+      GlobalKey<TextFieldCustomState>();
   TextEditingController fullNameController = TextEditingController();
 
   final GlobalKey<TextFieldCustomState> bioState =
-  GlobalKey<TextFieldCustomState>();
+      GlobalKey<TextFieldCustomState>();
   TextEditingController bioController = TextEditingController();
 
   bool isLoading = false;
   var selectedGenderIndex = -1;
   var personTypeSelectedIndex = -1;
+
   @override
   void initState() {
     super.initState();
     getUser();
   }
 
-   getUser()async{
-   setState(() {
-     isLoading = true;
-   });
-  var id  = await SessionManager.getStringData('userId');
-   apiPresenter.getUserData(context, id);
+  getUser() async {
+    setState(() {
+      isLoading = true;
+    });
+    var id = await SessionManager.getStringData('userId');
+    apiPresenter.getUserData(context, id);
   }
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveWidget(
@@ -60,10 +65,9 @@ class _EditProfileViewState extends State<EditProfileView> implements ApiCallBac
           decoration: BoxDecoration(gradient: lightgradientBG),
           child: Column(
             children: [
-            SubPageAppBar(
-            title: 'Edit Profile',
-
-          ),
+              SubPageAppBar(
+                title: 'Edit Profile',
+              ),
               Expanded(
                 child: KeyboardAvoider(
                   autoScroll: true,
@@ -86,25 +90,42 @@ class _EditProfileViewState extends State<EditProfileView> implements ApiCallBac
                             textInputType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                           ),
-
-                          Utilities.commonSizedBox(paddingMedium),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                              genderFied(index:1,gender:'Male',icon:AssetsImage.maleIc),
-                              SizedBox(width:14.0),
-                              genderFied(index:2,gender:'Female',icon:AssetsImage.femaleIc),
-                              SizedBox(width:14.0),
-                              genderFied(index:3,gender:'Other',icon: AssetsImage.otheIc,),
-                            ],),
                           Utilities.commonSizedBox(paddingMedium),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              personTypeField(type: 'Owl',index: 1,icon: AssetsImage.owlIc),
-                              SizedBox(width:10.0),
-                              personTypeField(type: 'Morning',index: 2,icon: AssetsImage.digitalClock),
-                          ],),
+                              genderFied(
+                                  index: 1,
+                                  gender: 'Male',
+                                  icon: AssetsImage.maleIc),
+                              SizedBox(width: 14.0),
+                              genderFied(
+                                  index: 2,
+                                  gender: 'Female',
+                                  icon: AssetsImage.femaleIc),
+                              SizedBox(width: 14.0),
+                              genderFied(
+                                index: 3,
+                                gender: 'Other',
+                                icon: AssetsImage.otheIc,
+                              ),
+                            ],
+                          ),
+                          Utilities.commonSizedBox(paddingMedium),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              personTypeField(
+                                  type: 'Owl',
+                                  index: 1,
+                                  icon: AssetsImage.owlIc),
+                              SizedBox(width: 10.0),
+                              personTypeField(
+                                  type: 'Morning',
+                                  index: 2,
+                                  icon: AssetsImage.digitalClock),
+                            ],
+                          ),
                           Utilities.commonSizedBox(paddingMedium),
                           TextFieldCustom(
                             key: bioState,
@@ -117,47 +138,60 @@ class _EditProfileViewState extends State<EditProfileView> implements ApiCallBac
                           Utilities.commonSizedBox(paddingMedium * 2.8),
                           isLoading
                               ? Center(
-                              child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                      colorBackground)))
+                                  child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          colorBackground)))
                               : CommonButton(
-                            buttonText:'Enter',
-                            onPressed: ()async {
-                              var isValid = true;
-                              var id  = await SessionManager.getStringData('userId');
-                              if (fullNameState.currentState
-                                  .checkValidation(false)) {
-                                isValid = false;
-                              }
-                              if (bioState.currentState
-                                  .checkValidation(false)) {
-                                isValid = false;
-                              }
+                                  buttonText: 'Enter',
+                                  onPressed: () async {
+                                    var isValid = true;
+                                    var id = await SessionManager.getStringData(
+                                        'userId');
+                                    if (fullNameState.currentState
+                                        .checkValidation(false)) {
+                                      isValid = false;
+                                    }
+                                    if (bioState.currentState
+                                        .checkValidation(false)) {
+                                      isValid = false;
+                                    }
 
-
-                              if (isValid == true) {
-                                if(selectedGenderIndex == -1){
-                                  Utilities.showError(scaffoldKey, 'Please select your gender');
-                                }else if(personTypeSelectedIndex == -1){
-                                  Utilities.showError(scaffoldKey, 'Please select your type');
-                                }else{
-                                  var gender = selectedGenderIndex == 1 ? 'Male': selectedGenderIndex == 2 ? 'Female' : 'Other';
-                                  var personType = personTypeSelectedIndex == 1 ?'Owl' : 'Morning';
-                                apiPresenter.doUpdateProfile(fullNameController.text, gender, bioController.text, personType, id,
-                                );
-                                }
+                                    if (isValid == true) {
+                                      if (selectedGenderIndex == -1) {
+                                        Utilities.showError(scaffoldKey,
+                                            'Please select your gender');
+                                      } else if (personTypeSelectedIndex ==
+                                          -1) {
+                                        Utilities.showError(scaffoldKey,
+                                            'Please select your type');
+                                      } else {
+                                        var gender = selectedGenderIndex == 1
+                                            ? 'Male'
+                                            : selectedGenderIndex == 2
+                                                ? 'Female'
+                                                : 'Other';
+                                        var personType =
+                                            personTypeSelectedIndex == 1
+                                                ? 'Owl'
+                                                : 'Morning';
+                                        apiPresenter.doUpdateProfile(
+                                          fullNameController.text,
+                                          gender,
+                                          bioController.text,
+                                          personType,
+                                          id,
+                                        );
+                                      }
 //                                _signUpClick();
-                              }
-                            },
-                          ),
-
+                                    }
+                                  },
+                                ),
                         ],
                       ),
                     ),
                   ),
                 ),
               ),
-
             ],
           ),
         );
@@ -165,59 +199,68 @@ class _EditProfileViewState extends State<EditProfileView> implements ApiCallBac
     );
   }
 
-  personTypeField({type,index,icon}){
-    return  InkWell(
-    onTap: (){
-    setState(() {
-    personTypeSelectedIndex = index;
-    });
-    },
-    child: personTypeSelectedIndex == index ? CommonButton(
-    backgroundColor: lightFonts,
-    isleadIcon: true,
-    leadIcon:icon,
-    isRightArrow: false,
-    width: MediaQuery.of(context).size.width / 2 - 38,
-    buttonText: type,
-    ): CommonButton(
-    isleadIcon: true,
-    leadIcon: icon,
-    isRightArrow: false,
-    width: MediaQuery.of(context).size.width / 2 - 38,
-    buttonText: type,
-),);
-}
+  personTypeField({type, index, icon}) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          personTypeSelectedIndex = index;
+        });
+      },
+      child: personTypeSelectedIndex == index
+          ? CommonButton(
+              backgroundColor: lightFonts,
+              isleadIcon: true,
+              leadIcon: icon,
+              isRightArrow: false,
+              width: MediaQuery.of(context).size.width / 2 - 38,
+              buttonText: type,
+            )
+          : CommonButton(
+              isleadIcon: true,
+              leadIcon: icon,
+              isRightArrow: false,
+              width: MediaQuery.of(context).size.width / 2 - 38,
+              buttonText: type,
+            ),
+    );
+  }
 
-  genderFied({index,gender,icon,}){
-    return
-    InkWell(
-      onTap: (){
+  genderFied({
+    index,
+    gender,
+    icon,
+  }) {
+    return InkWell(
+      onTap: () {
         setState(() {
           selectedGenderIndex = index;
         });
       },
-      child: selectedGenderIndex == index ? CommonButton(
-        backgroundColor: lightFonts,
-        isleadIcon: true,
-        leadIcon:icon,
-        isRightArrow: false,
-        width: MediaQuery.of(context).size.width / 3 - 32,
-        buttonText: gender,
-      ): CommonButton(
-      isleadIcon: true,
-      leadIcon: icon,
-      isRightArrow: false,
-      width: MediaQuery.of(context).size.width / 3 - 32,
-      buttonText: gender,
-    ),);
+      child: selectedGenderIndex == index
+          ? CommonButton(
+              backgroundColor: lightFonts,
+              isleadIcon: true,
+              leadIcon: icon,
+              isRightArrow: false,
+              width: MediaQuery.of(context).size.width / 3 - 32,
+              buttonText: gender,
+            )
+          : CommonButton(
+              isleadIcon: true,
+              leadIcon: icon,
+              isRightArrow: false,
+              width: MediaQuery.of(context).size.width / 3 - 32,
+              buttonText: gender,
+            ),
+    );
   }
 
   @override
   void onConnectionError(String error, String requestCode) {
-   setState(() {
-     isLoading = false;
-     Utilities.showError(scaffoldKey, error);
-   });
+    setState(() {
+      isLoading = false;
+      Utilities.showError(scaffoldKey, error);
+    });
   }
 
   @override
@@ -234,12 +277,12 @@ class _EditProfileViewState extends State<EditProfileView> implements ApiCallBac
       isLoading = false;
       fullNameController.text = object['full_name'] ?? '';
       bioController.text = object['bio'] ?? '';
-      selectedGenderIndex =  object['gender'] == 'Male' ? 1 : object['gender'] == 'Female' ? 2 : 3;
+      selectedGenderIndex = object['gender'] == 'Male'
+          ? 1
+          : object['gender'] == 'Female'
+              ? 2
+              : 3;
       personTypeSelectedIndex = object['person_type'] == 'Morning' ? 2 : 1;
     });
-
-
-
   }
-
 }

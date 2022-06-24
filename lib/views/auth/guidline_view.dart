@@ -81,25 +81,6 @@ class _GuidlineViewState extends State<GuidlineView> {
                                     context, RouteGuildlinePage02);
                               }
                           },
-                          // suffixIcon:Container(child: Icon(Icons.chevron_right)),
-                          // suffixIcon: InkWell(
-                          //   onTap: () {
-                          //     var isValid = true;
-                          //     if (nameState.currentState
-                          //         .checkValidation(false)) {
-                          //       isValid = false;
-                          //     }
-                          //     if (isValid) {
-                          //       globals.userName = nameController.text;
-                          //       Navigator.pushNamed(
-                          //           context, RouteGuildlinePage02);
-                          //     }
-                          //   },
-                          //   child: Icon(
-                          //     Icons.arrow_forward_ios,
-                          //     size: 20,
-                          //     color: colorPrimary,
-                          //   ),
                           ),
                     ),
 

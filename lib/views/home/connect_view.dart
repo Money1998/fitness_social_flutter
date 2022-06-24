@@ -14,6 +14,7 @@ import 'package:montage/utils/dimens.dart';
 import 'package:montage/utils/session_manager.dart';
 import 'package:montage/utils/text_styles.dart';
 import 'package:montage/views/common/common_horizontal_view.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ConnectView extends StatefulWidget {
   @override
@@ -63,6 +64,7 @@ class _ConnectViewState extends State<ConnectView> implements ApiCallBacks {
     ]);
     super.initState();
   }
+
   Future<dynamic> clickPageTypeCount(String title) async {
     var userID = await SessionManager.getStringData('userId');
     try {
@@ -76,10 +78,10 @@ class _ConnectViewState extends State<ConnectView> implements ApiCallBacks {
       print("requestParam => $requestParam");
       Response response = await http
           .post(Uri.parse(url),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: param)
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: param)
           .timeout(Duration(seconds: 30));
 
       final responseBody = jsonDecode(response.body);
@@ -127,8 +129,7 @@ class _ConnectViewState extends State<ConnectView> implements ApiCallBacks {
                         title: 'GROUPS',
                       ),
                       SizedBox(height: paddingMedium),
-                      if (isLoading)
-                        Center(child: CircularProgressIndicator()),
+                      if (isLoading) Center(child: CircularProgressIndicator()),
                       // else
                       //   ChannelHorizontalListView(
                       //     channelList: channelList,
@@ -138,28 +139,14 @@ class _ConnectViewState extends State<ConnectView> implements ApiCallBacks {
                       //     width: 110,
                       //     borderRadius: 14,
                       //   ),
-                      profileView(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: commonPadding, right: commonPadding),
-                        child: Text(
-                          'Meditation isn\'t about becoming a different person,a new person,or even a better person.',
-                          style: commontextStyle(
-                            color: colorBackground,
-                            fontSize: textSmall + 2,
-                            fontFamily: FontNameSemiBold,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: paddingMedium * 3),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(22),
-                              child: Image(image: CachedNetworkImageProvider("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiiK5xCERNAADefKPThkLWR--tCObqIoGdJw&usqp=CAU"))
-                            )
-                          ])
+                      Card(
+                          color: Colors.deepPurple.withOpacity(0.3),
+                          child: Column(
+                            children: [
+                              profileView(),
+                              likeCommentShareCard(),
+                            ],
+                          )),
                     ],
                   ),
                 ),
@@ -182,15 +169,15 @@ class _ConnectViewState extends State<ConnectView> implements ApiCallBacks {
       child: Row(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(28),
-            child: Container(
-              height: 55,
-              width: 55,
-              child: Image(
-                image: CachedNetworkImageProvider("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhX99a1vf8jUicueQrH7wWIEe7fwv95FB_Hw&usqp=CAU"),
-              ),
-            )
-          ),
+              borderRadius: BorderRadius.circular(28),
+              child: Container(
+                height: 55,
+                width: 55,
+                child: Image(
+                  image: CachedNetworkImageProvider(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhX99a1vf8jUicueQrH7wWIEe7fwv95FB_Hw&usqp=CAU"),
+                ),
+              )),
           SizedBox(width: paddingSmall),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,6 +219,74 @@ class _ConnectViewState extends State<ConnectView> implements ApiCallBacks {
                 ),
               ),
             ],
+          )
+        ],
+      ),
+    );
+  }
+
+  likeCommentShareCard() {
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+                left: commonPadding, right: commonPadding),
+            child: Text(
+              'Meditation isn\'t about becoming a different person,a new person,or even a better person.',
+              style: commontextStyle(
+                color: colorBackground,
+                fontSize: textSmall + 2,
+                fontFamily: FontNameSemiBold,
+              ),
+            ),
+          ),
+          SizedBox(height: paddingMedium * 2),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 1.1,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image(
+                  image: CachedNetworkImageProvider(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiiK5xCERNAADefKPThkLWR--tCObqIoGdJw&usqp=CAU"),
+                  fit: BoxFit.fitWidth,
+                )),
+          ),
+          SizedBox(height: paddingMedium * 2),
+          Card(
+            color: Colors.deepPurple.withOpacity(0.7),
+            child: Container(
+              height: 40,
+              padding: EdgeInsets.only(left: 30, right: 30),
+              child: Row(children: [
+                SizedBox(
+                  child: Row(children: [
+                    Icon(Icons.thumb_up, color: Colors.white),
+                    SizedBox(width: paddingMedium - 05),
+                    Text("Support", style: TextStyle(color: Colors.white)),
+                  ]),
+                ),
+                SizedBox(
+                  child: Row(children: [
+                    Icon(Icons.mode_comment_outlined, color: Colors.white),
+                    SizedBox(width: paddingMedium - 05),
+                    Text("Comment", style: TextStyle(color: Colors.white)),
+                  ]),
+                ),
+                InkWell(
+                  onTap: () => Share.share(
+                      'check out my website https://montagefit.com/',
+                      subject: 'Look what I made!'),
+                  child: SizedBox(
+                    child: Row(children: [
+                      Icon(Icons.share, color: Colors.white),
+                      SizedBox(width: paddingMedium - 05),
+                      Text("Share", style: TextStyle(color: Colors.white)),
+                    ]),
+                  ),
+                ),
+              ],mainAxisAlignment: MainAxisAlignment.spaceAround),
+            ),
           )
         ],
       ),

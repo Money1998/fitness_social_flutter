@@ -19,7 +19,7 @@ class GuidlineView04 extends StatefulWidget {
 class _GuidlineView04State extends State<GuidlineView04> {
   var selectedIndex = -1;
   final GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<RadioModel> buttonData = new List<RadioModel>();
+  List<RadioModel> buttonData = <RadioModel>[];
   commonSizedBox(height) {
     return SizedBox(
       height: height,
@@ -128,7 +128,7 @@ class _GuidlineView04State extends State<GuidlineView04> {
     return padding(
       paddingLarge * 3,
       Text(
-        'Are you morning person or a night owl?',
+        'Are you a morning person or a night owl?',
         style: primaryLight(fontSize: textLarge),
         textAlign: TextAlign.center,
         maxLines: 3,
@@ -142,10 +142,9 @@ class _GuidlineView04State extends State<GuidlineView04> {
       children: [
         CommonButton(
           isleadIcon: false,
-          leadIcon: AssetsImage.owlIc,
-          isRightArrow: true,
+          isRightArrow: false,
           width: MediaQuery.of(context).size.width / 1.4,
-          buttonText: AppStrings.next,
+          buttonText: Utilities.capitalize(AppStrings.next),
           onPressed: (){
             if(selectedIndex== -1){
               Utilities.showError(scaffoldKey, 'Please select option',);
